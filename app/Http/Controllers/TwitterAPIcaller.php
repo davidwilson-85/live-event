@@ -34,6 +34,7 @@ class TwitterAPIcaller extends BaseController
 
 		$url = 'https://api.twitter.com/1.1/search/tweets.json';
 		$getfield = '?q=climate%change%20-filter:retweets&count=500&tweet_mode=extended';
+		//$getfield = '?q=gaturro%20ganadores%20dedicatoria%20-filter:retweets&count=500&tweet_mode=extended';
 		$requestMethod = 'GET';
 
 		$twitter = new TwitterAPIExchange($settings);
@@ -54,14 +55,19 @@ class TwitterAPIcaller extends BaseController
 		// For testing:
 		//return $api_response_array;
 
+		// Create a new array, loop through Tweeter response object, and add desired info to array.
+
 		$tweets_info = array();
 
 		foreach ($api_response_array[0] as $tweet) {
 
-			if (isset($tweet->entities->media[0]->media_url)) {
-				$imgs_links = $tweet->entities->media[0]->media_url;
+			if (isset($tweet->extended_entities)) {
+				$img_urls = array();
+				foreach ($tweet->extended_entities->media as $media) {
+					$img_urls[] = $media->media_url;
+				}
 			} else {
-				$imgs_links = 'no_imgs';
+				$img_urls = 'no_imgs';
 			}
 
 			$tweets_info[] = array(
@@ -69,10 +75,12 @@ class TwitterAPIcaller extends BaseController
 				'user_name' => $tweet->user->name,
 				'user_profile_img' => $tweet->user->profile_image_url,
 				'full_text' => $tweet->full_text,
-				'imgs_links' => $imgs_links
+				'img_urls' => $img_urls
 			);
 
 		}
+
+		return $tweets_info;
 
 		return view('twitter_view', ['tweets_info' => $tweets_info]);
 
