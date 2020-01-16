@@ -10,6 +10,9 @@ use Illuminate\Routing\Controller as BaseController;
 // Use TwitterAPI wrapper (https://github.com/J7mbo/twitter-api-php)
 use App\Http\Controllers\TwitterAPI\TwitterAPIExchange;
 
+use App\Tweet;
+
+
 class TwitterAPIcaller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -55,16 +58,16 @@ class TwitterAPIcaller extends BaseController
 		// For testing:
 		//return $api_response_array;
 
-		// Create a new array, loop through Tweeter response object, and add desired info to array.
+		// Create a new array, loop through Twitter response object, and add desired info to array.
 
 		$tweets_info = array();
 
 		foreach ($api_response_array[0] as $tweet) {
 
 			if (isset($tweet->extended_entities)) {
-				$img_urls = array();
+				$img_urls = '';
 				foreach ($tweet->extended_entities->media as $media) {
-					$img_urls[] = $media->media_url;
+					$img_urls .= $media->media_url .',';
 				}
 			} else {
 				$img_urls = 'no_imgs';
@@ -80,7 +83,20 @@ class TwitterAPIcaller extends BaseController
 
 		}
 
-		return $tweets_info;
+		// Store new tweets in db
+
+		foreach ($tweets_info as $tweet_info) {
+
+			$tweet = new Tweet;
+	    	$tweet->tweet_id = $tweet_info['tweet_id'];
+	    	$tweet->user_name = $tweet_info['user_name'];
+	    	$tweet->url_user_img = $tweet_info['user_profile_img'];
+	    	$tweet->full_text = $tweet_info['full_text'];
+	    	$tweet->img_urls = $tweet_info['img_urls'];
+	        $tweet->save();
+		}
+
+		//return $tweets_info;
 
 		return view('twitter_view', ['tweets_info' => $tweets_info]);
 

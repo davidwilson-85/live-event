@@ -7,12 +7,6 @@
 		<br>
 		{{ $tweet_info['full_text'] }}
 		<br>
-
-		@if ($tweet_info['img_urls'] != 'no_imgs')
-			@foreach ($tweet_info['img_urls'] as $img_url)
-				<img src="{{ $img_url }}" width="300">
-			@endforeach
-		@endif
 	</p>
 
 @endforeach
