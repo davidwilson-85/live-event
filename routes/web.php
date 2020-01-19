@@ -17,4 +17,7 @@ Route::get('/', function () {
 
 Route::get('/twitter', 'TwitterAPIcaller@index');
 
+
+Route::get('/twittercomp', 'TwitterAPIcaller@compare');
+
 Route::get('/climatechange', 'WebUploadController@index');

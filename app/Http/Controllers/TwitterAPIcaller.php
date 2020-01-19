@@ -26,7 +26,10 @@ class TwitterAPIcaller extends BaseController
     	//   - Only tweets from the last 7-10 days are returned
     	// For now, I use count=500 and ignore pagination (it seems I get max 100 tweets...)
     	//
-    	// TO DO: Change to search by hashtag
+    	// TO DO:
+    	// - Change to search by hashtag
+    	// - Change table fields text to varchar because insert queries are taking a long time...
+    	// - 
 
 		$settings = array(
 		    'oauth_access_token' => "2769937384-CQIhnchVnKbE4LkE1ovxIf4ABFmxcbkIPELfduY",
@@ -48,40 +51,73 @@ class TwitterAPIcaller extends BaseController
 
 		// I may need to loop through response pages using provided pagination links
 
-
+		// I store the response in array format
 		$api_response_array = array();
 
 		foreach ($api_response as $element) {
 			$api_response_array[] = $element;
 		}
 
+		// Reverse order of tweets in response data, so direction is older -> newer tweet
+		$api_response_array[0] = array_reverse($api_response_array[0]);
+
+
+
+
+		// Delete from response tweets that are already in the database
+
+		// (database could be empty!!!!!!!!!!)
+
+		$highest_tweet_id = 0;
+		$highest_tweet_id = Tweet::orderBy('tweet_id','desc')->first()->tweet_id;
+		//return $highest_tweet_id;
+
+
+
+
+
+
+
+
+
+
+
 		// For testing:
 		//return $api_response_array;
 
-		// Create a new array, loop through Twitter response object, and add desired info to array.
+
+		// Create a new array, loop through Twitter response object
+		// If tweet id_str > max id in db, add desired info of tweet to the array.
 
 		$tweets_info = array();
 
 		foreach ($api_response_array[0] as $tweet) {
 
-			if (isset($tweet->extended_entities)) {
-				$img_urls = '';
-				foreach ($tweet->extended_entities->media as $media) {
-					$img_urls .= $media->media_url .',';
+			if ($tweet->id_str > $highest_tweet_id) {
+
+				// Check if tweet has images
+				if (isset($tweet->extended_entities)) {
+					$img_urls = '';
+					foreach ($tweet->extended_entities->media as $media) {
+						$img_urls .= $media->media_url .',';
+					}
+				} else {
+					$img_urls = 'no_imgs';
 				}
-			} else {
-				$img_urls = 'no_imgs';
+
+				$tweets_info[] = array(
+					'tweet_id' => $tweet->id_str,
+					'user_name' => $tweet->user->name,
+					'user_profile_img' => $tweet->user->profile_image_url,
+					'full_text' => $tweet->full_text,
+					'img_urls' => $img_urls
+				);
+
 			}
 
-			$tweets_info[] = array(
-				'tweet_id' => $tweet->id,
-				'user_name' => $tweet->user->name,
-				'user_profile_img' => $tweet->user->profile_image_url,
-				'full_text' => $tweet->full_text,
-				'img_urls' => $img_urls
-			);
-
 		}
+
+		//return $tweets_info;
 
 		// Store new tweets in db
 
@@ -96,9 +132,15 @@ class TwitterAPIcaller extends BaseController
 	        $tweet->save();
 		}
 
-		//return $tweets_info;
+		return $tweets_info;
 
 		return view('twitter_view', ['tweets_info' => $tweets_info]);
+
+    }
+
+    public function compare() {
+
+		//
 
     }
 }
