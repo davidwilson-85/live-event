@@ -15,9 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/twitter', 'TwitterAPIcaller@index');
+Route::get('/test_twitter', 'TESTS_TwitterAPIcaller@index');
 
 
-Route::get('/twittercomp', 'TwitterAPIcaller@compare');
 
 Route::get('/climatechange', 'WebUploadController@index');
