@@ -132,9 +132,11 @@ class TwitterAPIcaller extends BaseController
 	        $tweet->save();
 		}
 
-		return $tweets_info;
+		// For testing
+		//return $tweets_info;
 
-		return view('twitter_view', ['tweets_info' => $tweets_info]);
+		// For testing
+		//return view('twitter_view', ['tweets_info' => $tweets_info]);
 
     }
     

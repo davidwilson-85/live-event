@@ -11,12 +11,18 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
-Route::get('/test_twitter', 'TESTS_TwitterAPIcaller@index');
 
 
+Route::get('/', 'LiveViewController@index');
+
+
+Route::get('/test_twitter', 'TwitterAPIcaller@index');
 
 Route::get('/climatechange', 'WebUploadController@index');
+Route::post('/upload_image', 'WebUploadController@uploadImage');

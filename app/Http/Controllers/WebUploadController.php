@@ -13,29 +13,32 @@ class WebUploadController extends BaseController
 
     }
 
-    public function subirImagen(Request $request) {
-	    
+    public function uploadImage(Request $request) {
+
+    	// ====================================
+    	// TO DO:
+    	// * Add validation of uploaded image
+    	// * What if same iamge is uploaded several times? Inspiration: https://stackoverflow.com/questions/18849927/verifying-that-two-files-are-identical-using-pure-php 
+    	// ====================================
+/*	    
 	    $this->validate($request, [
-	        'imagen' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+	        'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
 	    ]);
+*/
+	    if ($request->hasFile('image')) {
 
-	    if ($request->hasFile('imagen')) {
-
-	    	// Procesar imagen, cambiarle el nombre y guardarla en carpeta /imagenes
-	        $imagen = $request->file('imagen');
-	        $imagen_nombre = 'imagen_perfil_id_'. auth()->user()->id .'.'. $imagen->getClientOriginalExtension();
-	        $dir_destino = public_path('/images');
-	        $imagen->move($dir_destino, $imagen_nombre);
-
-	        // El nombre de las imagenes siempre va a ser 'imagen_perfil_id_{{id}}', pero la extensión es variable, y eso crea la necesidad de guardala en la base de datos para consultarla cada vez que se solicite la vista'
-	        $descripcion = Description::updateOrCreate([
-				'id_usuario' => auth()->user()->id], [ 
-			    'imagen_perfil' => $imagen_nombre
+	    	// Process image, change name, save in folder public/uploadedImages
+	        $image = $request->file('image');
+	        $image_name = 'img_'. time() . '_'. mt_rand() .'.'. $image->getClientOriginalExtension();
+	        $destination_directory = public_path('/uploadedImages');
+	        $image->move($destination_directory, $image_name);
+/*
+	        // Add info of uploaded image to database
+	        $description = Description::updateOrCreate([
+				'image_name' => $image_name
 			]);
-			$descripcion->save();
-
-			// Por hacer: en caso de que el archivo de imagen no sobreescriba al preexistente, podría eliminarlo aquí.
-
+			$description->save();
+*/
 	        return back();
 	    }
 
