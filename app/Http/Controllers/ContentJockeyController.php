@@ -18,61 +18,75 @@ class ContentJockeyController extends Controller
 
 		// TO DO LATER
 
-		// Query last X elements in DB and
+		// Query last X elements in DB and. Maybe X should be a tunable parameter because in case of low inflow of tweets/images, it will exclude anything older and could result in too much repetition of latest X tweets/images
 
-		$latestElements = Tweet::orderBy('id', 'desc')->take(50)->get();
+		$latestElements = Tweet::orderBy('id', 'desc')->take(25)->get();
 
 
 		// https://stackoverflow.com/questions/365191/how-to-get-time-difference-in-minutes-in-php
+		//$currentTime = new DateTime();
+		//$currentTimeFormatted = $currentTime->format('Y-m-d H:i:s');
+		//$uploadTime = DateTime::createFromFormat('Y-m-d H:i:s', '2020-02-10 21:00:00');
 
-
-		$time = DateTime::createFromFormat('Y-m-d H:i:s', '2020-01-31 21:00:00');
 
 		$currentTime = new DateTime();
-
 		$currentTimeFormatted = $currentTime->format('Y-m-d H:i:s');
 
+		//$interval = ( strtotime($currentTimeFormatted) - strtotime('2020-01-29 21:00:00') ) / 60;
 
-		$interval = ( strtotime($currentTimeFormatted) - strtotime('2020-01-29 21:00:00') ) / 60;
 
-		return $interval;
+		if (count($latestElements) == 0) {
 
-		$interval = $currentTime->diff($time);
+			return 'No tweets in DB';
 
-		$intervalInMins = 
-			$interval->y * 999 +
-			$interval->y * 999 +
-			$interval->y * 999 +
-			$interval->y * 999 +
-			$interval->y * 999;
+		} else {
 
-		
-		return $interval;
-		
+			// Define array to store all ages
+			$ages = array();
 
-		foreach ($latestElements as $element) {
+			foreach ($latestElements as $element) {
 
-			//return $element->created_at;
+				// add age in minutes to array
+				$element->age = ( strtotime($currentTimeFormatted) - strtotime($element->created_at) ) / 60;
 
-			return DateTime::createFromFormat('Y-m-d H:i:s', $element->created_at)->format('H:i:s');
+				$ages[] = $element->age;
+
+			}
+
+			$max_age = max($ages);
+
+			foreach ($latestElements as $element) {
+
+				// add N score to array
+				//$nScore = [ age(minutes) + numViews * ageMax  * rand(-0.01 - +0.01);
+				$element->nScore = $element->age + $max_age * $element->nbr_views + mt_rand(-1000, 1000) * 0.000001; 
+
+			}
+
+
+			// Find ID of element with lowest N score
+
+			$nScores = array();
+
+			foreach ($latestElements as $element) {
+				$nScores[$element->id] = $element->nScore;
+			}
+
+			$element_min_nScore = array_keys($nScores, min($nScores));
+
+
+			// Update nbr_views of selected element
+
+			$selected_tweet = Tweet::find($element_min_nScore[0]);
+			$selected_tweet->nbr_views = 1;
+			$selected_tweet->save();
+			
+
+			// Return to view
+			return $selected_tweet;
 
 		}
 
-		//return DateTime::createFromFormat('Y-m-d H:i:s', '2020-01-30 22:05:01')->format('Y H:i:s');
-
-		return $latestElements;
-
-		// Calculate score for each element
-
-		//$score = [ age(minutes) + numViews * (ageMax - ageMin) ] * rand(-0.1 - +0.1);
-
-		// Select element with lowest score, update views info in DB
-
-		// Return selected element
 	}
-    
-
-    //
-
 
 }

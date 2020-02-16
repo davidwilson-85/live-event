@@ -21,6 +21,7 @@ class CreateTweetsTable extends Migration
             $table->string('url_user_img');
             $table->text('full_text');
             $table->text('img_urls');
+            $table->integer('nbr_views');
         });
     }
 

@@ -129,6 +129,7 @@ class TwitterAPIcaller extends BaseController
 	    	$tweet->url_user_img = $tweet_info['user_profile_img'];
 	    	$tweet->full_text = $tweet_info['full_text'];
 	    	$tweet->img_urls = $tweet_info['img_urls'];
+	    	$tweet->nbr_views = 0;
 	        $tweet->save();
 		}
 
