@@ -13,10 +13,15 @@ class CreateUploadedImagesTable extends Migration
      */
     public function up()
     {
+
+        // 'caption' is a short (256 chars?) text that can optionally uploaded with the image
+
         Schema::create('uploaded_images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('file_name');
+            $table->string('caption');
+            $table->integer('nbr_views');
         });
     }
 

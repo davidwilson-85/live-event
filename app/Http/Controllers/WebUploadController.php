@@ -5,6 +5,8 @@ use Illuminate\Routing\Controller as BaseController;
 
 use Illuminate\Http\Request;
 
+use App\UploadedImage;
+
 class WebUploadController extends BaseController
 {
     public function index() {
@@ -18,7 +20,7 @@ class WebUploadController extends BaseController
     	// ====================================
     	// TO DO:
     	// * Add validation of uploaded image
-    	// * What if same iamge is uploaded several times? Inspiration: https://stackoverflow.com/questions/18849927/verifying-that-two-files-are-identical-using-pure-php 
+    	// * What if same image is uploaded several times? Inspiration: https://stackoverflow.com/questions/18849927/verifying-that-two-files-are-identical-using-pure-php 
     	// ====================================
 /*	    
 	    $this->validate($request, [
@@ -29,7 +31,7 @@ class WebUploadController extends BaseController
 
 	    	// Process image, change name, save in folder public/uploadedImages
 	        $image = $request->file('image');
-	        $image_name = 'img_'. time() . '_'. mt_rand() .'.'. $image->getClientOriginalExtension();
+	        $image_name = 'img_'. time() .'_'. mt_rand() .'.'. $image->getClientOriginalExtension();
 	        $destination_directory = public_path('/uploadedImages');
 	        $image->move($destination_directory, $image_name);
 /*
@@ -39,6 +41,12 @@ class WebUploadController extends BaseController
 			]);
 			$description->save();
 */
+			$newImage = new UploadedImage;
+			$newImage->file_name = $image_name;
+			$newImage->caption = 'no caption';
+			$newImage->nbr_views = 0;
+	        $newImage->save();
+
 	        return back();
 	    }
 

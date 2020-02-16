@@ -20,7 +20,7 @@ class ContentJockeyController extends Controller
 
 		// Query last X elements in DB and. Maybe X should be a tunable parameter because in case of low inflow of tweets/images, it will exclude anything older and could result in too much repetition of latest X tweets/images
 
-		$latestElements = Tweet::orderBy('id', 'desc')->take(25)->get();
+		$latestElements = Tweet::where('img_urls', '!=', 'no_imgs')->orderBy('id', 'desc')->take(25)->get();
 
 
 		// https://stackoverflow.com/questions/365191/how-to-get-time-difference-in-minutes-in-php
@@ -37,7 +37,7 @@ class ContentJockeyController extends Controller
 
 		if (count($latestElements) == 0) {
 
-			return 'No tweets in DB';
+			return 'No tweets/images in DB. Before each event, manager should upload several iamges to prime the system';
 
 		} else {
 
@@ -59,7 +59,7 @@ class ContentJockeyController extends Controller
 
 				// add N score to array
 				//$nScore = [ age(minutes) + numViews * ageMax  * rand(-0.01 - +0.01);
-				$element->nScore = $element->age + $max_age * $element->nbr_views + mt_rand(-1000, 1000) * 0.000001; 
+				$element->nScore = $element->age + $max_age * $element->nbr_views + mt_rand(-10000, 10000) * 0.0000001; 
 
 			}
 
@@ -78,12 +78,21 @@ class ContentJockeyController extends Controller
 			// Update nbr_views of selected element
 
 			$selected_tweet = Tweet::find($element_min_nScore[0]);
-			$selected_tweet->nbr_views = 1;
+			$selected_tweet->nbr_views += 1;
 			$selected_tweet->save();
 			
 
 			// Return to view
-			return $selected_tweet;
+
+			// Convert string with img urls to array
+			$img_urls = explode(",", $selected_tweet->img_urls);
+			array_pop($img_urls);
+			$selected_tweet->img_urls = $img_urls;
+
+			//return array($selected_tweet, $latestElements);
+			//return $selected_tweet;
+
+			return view('weighted-live', ['selected_tweet' => $selected_tweet]);
 
 		}
 
