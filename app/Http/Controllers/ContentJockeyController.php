@@ -20,7 +20,7 @@ class ContentJockeyController extends Controller
 
 		// Query last X elements in DB and. Maybe X should be a tunable parameter because in case of low inflow of tweets/images, it will exclude anything older and could result in too much repetition of latest X tweets/images
 
-		$latestElements = Tweet::where('img_urls', '!=', 'no_imgs')->orderBy('id', 'desc')->take(25)->get();
+		$latestElements = Tweet::where('img_urls', '!=', 'no_imgs')->orderBy('id', 'desc')->take(50)->get();
 
 
 		// https://stackoverflow.com/questions/365191/how-to-get-time-difference-in-minutes-in-php
