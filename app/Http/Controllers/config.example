@@ -1,6 +1,6 @@
 # Name of the project 
 # name: string
-name: ddddddd
+name: Climate change
 
 # Security
 # security: {moderator || free}
@@ -21,8 +21,8 @@ language: english
 
 # === Web upload
 # Web upload
-# web_enabled: {true || false}
-web_enabled: false
+# web_state: {true || false}
+web_state: true
 # web_uploadImages: {true || false}
 web_uploadImages: true
 # web_uploadText: {true || false}
@@ -30,7 +30,50 @@ web_uploadText: true
 
 # === Twitter
 # Content from Twitter API
-# twitter_enabled: {true || false}
-twitter_enabled: false
+# twitter_state: {true || false}
+twitter_state: false
 # twitter_hashtags: Comma-separated list of hashtags
 twitter_hashtags: #climatechange, #globalwarming
+
+
+*****************************************************
+
+{
+	"name":"climatechange",
+
+	"display":"single",
+
+	"security":"free",
+
+	"media" : {
+
+		"img":"true",
+
+		"vid":"false"
+	},
+
+	"language": "english",
+
+	"source": {
+
+		"web": {
+
+			"state":"true",
+
+			"uploadImages":"true",
+	
+			"uploadTexts":"true"
+
+		},
+
+		"twitter": {
+
+			"state":"true",
+
+			"hashtags":"#climatechange"
+
+		},
+
+	}
+	
+}

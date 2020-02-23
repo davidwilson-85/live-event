@@ -27,3 +27,8 @@ Route::get('/test_twitter', 'TwitterAPIcaller@index');
 
 Route::get('/climatechange', 'WebUploadController@index');
 Route::post('/upload_image', 'WebUploadController@uploadImage');
+
+// Control panel routes
+Route::get('/controlpanel', 'ControlPanelController@index');
+Route::patch('/controlpanel/{configParam}', 'ControlPanelController@update');
+//Route::patch('/controlpanel/boolean/{configParam}', 'ControlPanelController@update');
