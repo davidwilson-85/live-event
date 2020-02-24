@@ -23,10 +23,10 @@ language: english
 # Web upload
 # web_state: {true || false}
 web_state: true
-# web_uploadImages: {true || false}
-web_uploadImages: true
-# web_uploadText: {true || false}
-web_uploadText: true
+# web_upload_images: {true || false}
+web_upload_images: true
+# web_upload_text: {true || false}
+web_upload_text: true
 
 # === Twitter
 # Content from Twitter API

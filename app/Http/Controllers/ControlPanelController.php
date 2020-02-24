@@ -22,8 +22,8 @@ class ControlPanelController extends Controller
     	$security = ConfigLiveevent::readConfig('security');
     	$language = ConfigLiveevent::readConfig('language');
     	$web_enabled = ConfigLiveevent::readConfig('web_enabled');
-    	$web_uploadImages = ConfigLiveevent::readConfig('web_uploadImages');
-    	$web_uploadText = ConfigLiveevent::readConfig('web_uploadText');
+    	$web_upload_images = ConfigLiveevent::readConfig('web_upload_images');
+    	$web_upload_text = ConfigLiveevent::readConfig('web_upload_text');
     	
 
     	return view('control-panel', [
@@ -31,8 +31,8 @@ class ControlPanelController extends Controller
     		'security' => $security, 
     		'language' => $language,
     		'web_enabled' => $web_enabled,
-    		'web_uploadImages' => $web_uploadImages,
-    		'web_uploadText' => $web_uploadText
+    		'web_upload_images' => $web_upload_images,
+    		'web_upload_text' => $web_upload_text
     	]);
 
     }
@@ -46,10 +46,11 @@ class ControlPanelController extends Controller
 
     	} else if (request('hidden') == 'boolean') {
 
-    		$status = ConfigLiveevent::readConfig($configParam);
-    		$status = ($status == 'true' ? 'false' : 'true');
-
-    		ConfigLiveevent::writeConfig($configParam, $status);
+            if (request('boolean') == True) {
+                ConfigLiveevent::writeConfig($configParam, 'true');
+            } else {
+                ConfigLiveevent::writeConfig($configParam, 'false');
+            }
 
     	}
     	

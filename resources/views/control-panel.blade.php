@@ -28,22 +28,24 @@
  		{{ method_field('PATCH') }}
 
  		<input type="hidden" name="hidden" value="boolean">
- 		<label for="Web enabled"> Web enabled: </label>
 
- 		@if ($web_enabled == 'true')
- 			<input type="checkbox" id="web_enabled" name="web_enabled" checked onchange="this.form.submit()">
- 		@elseif ($web_enabled == 'false')
- 			<input type="checkbox" id="web_enabled" name="web_enabled" onchange="this.form.submit()">
- 		@endif
-
- 		
+ 		<label for="Web enabled">Web enabled:</label>
+		<input type="checkbox" id="web_enabled" name="boolean" {{ $web_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
  	</form>
 </p>
 
 <p>
-	Web image upload enabled: {{ $web_uploadImages }}
+	<form method="post" action="/controlpanel/web_upload_images" id="form-update-web_upload_images">
+ 		{{ csrf_field() }}
+ 		{{ method_field('PATCH') }}
+
+ 		<input type="hidden" name="hidden" value="boolean">
+
+ 		<label for="Web enabled">Web image upload enabled:</label>
+ 		<input type="checkbox" id="web_upload_images" name="boolean" {{ $web_upload_images == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
+ 	</form>
 </p>
 
 <p>
-	Web text upload enabled: {{ $web_uploadText }}
+	Web text upload enabled: {{ $web_upload_text }}
 </p>

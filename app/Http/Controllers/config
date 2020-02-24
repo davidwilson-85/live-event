@@ -1,6 +1,6 @@
 # Name of the project 
 # name: string
-name: ddddddd
+name: ClimateChange
 
 # Security
 # security: {moderator || free}
@@ -22,15 +22,14 @@ language: english
 # === Web upload
 # Web upload
 # web_enabled: {true || false}
-web_enabled: false
-# web_uploadImages: {true || false}
-web_uploadImages: true
-# web_uploadText: {true || false}
-web_uploadText: true
+web_enabled: true
+# web_upload_images: {true || false}
+web_upload_images: true
+# web_upload_text: {true || false}
+web_upload_text: true
 
 # === Twitter
 # Content from Twitter API
 # twitter_enabled: {true || false}
 twitter_enabled: false
 # twitter_hashtags: Comma-separated list of hashtags
-twitter_hashtags: #climatechange, #globalwarming
