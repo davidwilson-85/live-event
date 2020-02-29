@@ -5,6 +5,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
 use App\Tweet;
+Use App\UploadedImage;
 
 use DateTime;
 
@@ -20,8 +21,35 @@ class ContentJockeyController extends Controller
 
 		// Query last X elements in DB and. Maybe X should be a tunable parameter because in case of low inflow of tweets/images, it will exclude anything older and could result in too much repetition of latest X tweets/images
 
-		$latestElements = Tweet::where('img_urls', '!=', 'no_imgs')->orderBy('id', 'desc')->take(50)->get();
+		// Initialize $latestElements var and append different types of elements according to configuration of the app
 
+		$latestTweets = collect();
+		$latestWebUploads = collect();
+		$latestElements = array();
+
+		if (ConfigLiveevent::readConfig('twitter_enabled') == 'true') {
+
+			$latestTweets = Tweet::where('img_urls', '!=', 'no_imgs')->orderBy('id', 'desc')->take(25)->get();
+
+			$latestTweets->each(function ($item, $key) {
+				$item->type = 'tweet';
+			});
+
+		}
+
+		if (ConfigLiveevent::readConfig('web_enabled') == 'true') {
+
+			$latestWebUploads = UploadedImage::orderBy('id', 'desc')->take(25)->get();
+
+			$latestWebUploads->each(function ($item, $key) {
+				$item->type = 'web_upload';
+			});
+
+		}
+
+		$latestElements = $latestTweets->concat($latestWebUploads);
+
+		// Calculate nScore of each element 
 
 		// https://stackoverflow.com/questions/365191/how-to-get-time-difference-in-minutes-in-php
 		//$currentTime = new DateTime();
@@ -37,7 +65,7 @@ class ContentJockeyController extends Controller
 
 		if (count($latestElements) == 0) {
 
-			return 'No tweets/images in DB. Before each event, manager should upload several iamges to prime the system';
+			return 'No tweets/images in DB. Before each event, manager should upload several images to prime the system';
 
 		} else {
 
@@ -58,43 +86,69 @@ class ContentJockeyController extends Controller
 			foreach ($latestElements as $element) {
 
 				// add N score to array
-				//$nScore = [ age(minutes) + numViews * ageMax  * rand(-0.01 - +0.01);
+				// nScore = [ age(minutes) + numViews * ageMax  * rand(-0.01 - +0.01);
 				$element->nScore = $element->age + $max_age * $element->nbr_views + mt_rand(-10000, 10000) * 0.0000001; 
 
 			}
 
+			// Select and return element with lowest nScore
 
-			// Find ID of element with lowest N score
+			$min_nScore = $latestElements->min('nScore');
+			$selected_element = $latestElements->where('nScore', $min_nScore)->first();
 
-			$nScores = array();
+			// I split code depending on type of selected element
 
-			foreach ($latestElements as $element) {
-				$nScores[$element->id] = $element->nScore;
+			if ($selected_element->type == 'tweet') {
+
+				// Update nbr_views of selected element
+
+				$updated_element = Tweet::find($selected_element->id);
+				$updated_element->nbr_views += 1;
+				$updated_element->save();
+				
+				// Return to view
+
+				// Convert string with img urls to array
+				$img_urls = explode(",", $selected_element->img_urls);
+				array_pop($img_urls);
+				$selected_element->imgs = $img_urls;
+
+				return view('weighted-live', ['selected_element' => $selected_element]);
+
 			}
 
-			$element_min_nScore = array_keys($nScores, min($nScores));
+			if ($selected_element->type == 'web_upload') {
 
+				// Update nbr_views of selected element
 
-			// Update nbr_views of selected element
+				$updated_element = UploadedImage::find($selected_element->id);
+				$updated_element->nbr_views += 1;
+				$updated_element->save();
+				
+				// Return to view
 
-			$selected_tweet = Tweet::find($element_min_nScore[0]);
-			$selected_tweet->nbr_views += 1;
-			$selected_tweet->save();
-			
+				// Convert string with img names to array
+				$img_names = explode(",", $selected_element->file_name);
+				$selected_element->imgs = $img_names;
 
-			// Return to view
+				return view('weighted-live', ['selected_element' => $selected_element]);
 
-			// Convert string with img urls to array
-			$img_urls = explode(",", $selected_tweet->img_urls);
-			array_pop($img_urls);
-			$selected_tweet->img_urls = $img_urls;
-
-			//return array($selected_tweet, $latestElements);
-			//return $selected_tweet;
-
-			return view('weighted-live', ['selected_tweet' => $selected_tweet]);
+			}
 
 		}
+
+	}
+
+	public function ajax() {
+
+		$resp = array(
+			'info1' => 'first message',
+			'info2' => 'second message'
+		);
+
+		$msg = "This is a simple messagee.";
+		
+		return $resp;
 
 	}
 

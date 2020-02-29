@@ -1,21 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LiveView</title>
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+	<script type="text/javascript" src="{{ asset('js/javascript.js') }}"></script>
+</head>
 
+<body>
 
 <p>
-	{{ $selected_tweet->id }}
+	type: {{ $selected_element->type}}
 </p>
 
 <p>
-	{{ $selected_tweet->user_name }}
+	id: {{ $selected_element->id }}
 </p>
 
 <p>
-	{{ $selected_tweet->full_text }}
+	user_name: {{ $selected_element->user_name }}
 </p>
 
 <p>
-	{{ $selected_tweet->nbr_views }}
+	full text: {{ $selected_element->full_text }}
 </p>
 
 <p>
-	<img src="{{ $selected_tweet->img_urls[0] }}" width="1000px">
+	nbr views: {{ $selected_element->nbr_views }}
 </p>
+
+@if ($selected_element->type == 'tweet')
+
+	<p>
+		<img src="{{ $selected_element->imgs[0] }}" width="1000px">
+	</p>
+
+@endif
+
+@if ($selected_element->type == 'web_upload')
+
+	<p>
+		<img src="uploadedImages/{{ $selected_element->imgs[0] }}" width="1000px">
+	</p>
+
+@endif
+
+Ajax start
+
+<div id="ajax-test">
+
+</div>
+
+Ajax end
+
+</body>
+</html>
