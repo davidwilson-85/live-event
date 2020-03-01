@@ -49,3 +49,15 @@
 <p>
 	Web text upload enabled: {{ $web_upload_text }}
 </p>
+
+<p>
+	<form method="post" action="/controlpanel/twitter_enabled" id="form-update-twitter_enabled">
+ 		{{ csrf_field() }}
+ 		{{ method_field('PATCH') }}
+
+ 		<input type="hidden" name="hidden" value="boolean">
+
+ 		<label for="Twitter enabled">Twitter enabled:</label>
+		<input type="checkbox" id="twitter_enabled" name="boolean" {{ $twitter_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
+ 	</form>
+</p>

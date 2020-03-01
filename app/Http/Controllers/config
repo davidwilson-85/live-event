@@ -1,35 +1,52 @@
-# Name of the project 
-# name: string
+#===========================================================================
+# General settings
+#===========================================================================
+
+# name: string. Name of the project
 name: ClimateChange
 
-# Security
 # security: {moderator || free}
 security: free
 
-# Declare type of media accepted
+#===========================================================================
+# Type of media accepted
+#===========================================================================
+
 # media_img: {true || false}
 media_img: true
+
 # media_vid: {true || false}
 media_vid: true
 
-# Language of the front end
 # language: {english || español || deutsch}
 language: english
 
+#===========================================================================
+# Source of content in the app
+#===========================================================================
 
-# === Source of content in the app
-
-# === Web upload
 # Web upload
+
 # web_enabled: {true || false}
 web_enabled: true
+
 # web_upload_images: {true || false}
 web_upload_images: false
+
 # web_upload_text: {true || false}
 web_upload_text: true
 
-# === Twitter
-# Content from Twitter API
+#===========================================================================
+
+#  Twitter. Content from Twitter API
+
 # twitter_enabled: {true || false}
 twitter_enabled: true
+
 # twitter_hashtags: Comma-separated list of hashtags
+twitter_hashtags: test1, test2
+
+# twitter_frequency: Frequency (units?) to call the twitter API to retrieve new tweets
+twitter_frequency: 5
+
+#===========================================================================

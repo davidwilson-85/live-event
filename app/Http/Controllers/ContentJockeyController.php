@@ -11,7 +11,8 @@ use DateTime;
 
 class ContentJockeyController extends Controller
 {
-    // This class deals with content that has to be deliverred to frontend Live View
+
+	// This class deals with content that has to be deliverred to frontend Live View
 
 	public function weightedLive() {
 
@@ -136,23 +137,6 @@ class ContentJockeyController extends Controller
 			return view('weighted-live', ['selected_element' => $selected_element]);
 
 		}
-
-	}
-
-	public function weightedLiveTemplate() {
-
-		return view('weighted-live');
-
-	}
-
-	public function ajax() {
-
-		$resp = array(
-			'info1' => rand(0, 200),
-			'info2' => rand(500,600)
-		);
-		
-		return json_encode($resp);
 
 	}
 

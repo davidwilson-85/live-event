@@ -24,6 +24,7 @@ class ControlPanelController extends Controller
     	$web_enabled = ConfigLiveevent::readConfig('web_enabled');
     	$web_upload_images = ConfigLiveevent::readConfig('web_upload_images');
     	$web_upload_text = ConfigLiveevent::readConfig('web_upload_text');
+        $twitter_enabled = ConfigLiveevent::readConfig('twitter_enabled');
     	
 
     	return view('control-panel', [
@@ -32,7 +33,8 @@ class ControlPanelController extends Controller
     		'language' => $language,
     		'web_enabled' => $web_enabled,
     		'web_upload_images' => $web_upload_images,
-    		'web_upload_text' => $web_upload_text
+    		'web_upload_text' => $web_upload_text,
+            'twitter_enabled' => $twitter_enabled
     	]);
 
     }

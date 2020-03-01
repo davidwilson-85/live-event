@@ -13,8 +13,18 @@ function ajax() {
 			var resp = this.responseText;
 			var jsonResp = JSON.parse(resp);
 			console.log(jsonResp);
+
 			document.getElementById("selected_id").innerHTML = jsonResp.id;
-			document.getElementById("selected_img").src = jsonResp.imgs[0];
+			
+			if (jsonResp.type == 'tweet') {
+
+				document.getElementById("img").innerHTML = '<img src="' + jsonResp.imgs[0] + '" width="100%">';
+
+			} else if (jsonResp.type == 'web_upload') {
+
+				document.getElementById("img").innerHTML = '<img src="uploadedImages/' + jsonResp.imgs[0] + '" width="100%">';
+
+			}
 		}
 	};
 	

@@ -20,7 +20,9 @@ Route::get('/', function () {
 
 
 Route::get('/', 'LiveViewController@index');
-Route::get('/weightedlive', 'ContentJockeyController@weightedLiveTemplate');
+Route::get('/weightedlive', function() {
+	return view('weighted-live');
+});
 Route::get('/weightedlive/ajax', 'ContentJockeyController@weightedLive');
 
 Route::get('/test_twitter', 'TwitterAPIcaller@index');
