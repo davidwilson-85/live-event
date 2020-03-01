@@ -113,8 +113,6 @@ class ContentJockeyController extends Controller
 				array_pop($img_urls);
 				$selected_element->imgs = $img_urls;
 
-				return view('weighted-live', ['selected_element' => $selected_element]);
-
 			}
 
 			if ($selected_element->type == 'web_upload') {
@@ -131,24 +129,30 @@ class ContentJockeyController extends Controller
 				$img_names = explode(",", $selected_element->file_name);
 				$selected_element->imgs = $img_names;
 
-				return view('weighted-live', ['selected_element' => $selected_element]);
-
 			}
 
+			return json_encode($selected_element);
+
+			return view('weighted-live', ['selected_element' => $selected_element]);
+
 		}
+
+	}
+
+	public function weightedLiveTemplate() {
+
+		return view('weighted-live');
 
 	}
 
 	public function ajax() {
 
 		$resp = array(
-			'info1' => 'first message',
-			'info2' => 'second message'
+			'info1' => rand(0, 200),
+			'info2' => rand(500,600)
 		);
-
-		$msg = "This is a simple messagee.";
 		
-		return $resp;
+		return json_encode($resp);
 
 	}
 

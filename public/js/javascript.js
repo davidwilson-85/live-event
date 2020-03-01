@@ -10,7 +10,11 @@ function ajax() {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("ajax-test").innerHTML = this.responseText;
+			var resp = this.responseText;
+			var jsonResp = JSON.parse(resp);
+			console.log(jsonResp);
+			document.getElementById("selected_id").innerHTML = jsonResp.id;
+			document.getElementById("selected_img").src = jsonResp.imgs[0];
 		}
 	};
 	

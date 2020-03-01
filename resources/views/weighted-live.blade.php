@@ -8,6 +8,37 @@
 
 <body>
 
+
+
+
+
+
+Ajax start
+
+<div id="ajax-test">
+
+</div>
+
+Ajax end
+
+
+
+
+
+
+<div id="selected_id">
+	id:
+</div>
+
+<div id="img">
+	<img id="selected_img" src="" width="700px">
+</div>
+
+
+
+{{--
+
+
 <p>
 	type: {{ $selected_element->type}}
 </p>
@@ -44,13 +75,7 @@
 
 @endif
 
-Ajax start
-
-<div id="ajax-test">
-
-</div>
-
-Ajax end
+--}}
 
 </body>
 </html>
