@@ -19,18 +19,36 @@ Route::get('/', function () {
 
 
 
-Route::get('/', 'LiveViewController@index');
+// ========================================================================
+// Web upload routes. This block should always be upstream of anything else, and the order of the route statements within the block must not be altered.
+Route::get('/{event_alias}', 'WebUploadController@index');
+Route::get('/climatechange', 'WebUploadController@index');
+Route::post('/upload_image', 'WebUploadController@uploadImage');
+
+
+// ========================================================================
+// Routes for Live View
 Route::get('/weightedlive', function() {
 	return view('weighted-live');
 });
 Route::get('/weightedlive/ajax', 'ContentJockeyController@weightedLive');
 
+
+// ========================================================================
+// Route to force calling Twitter API
 Route::get('/test_twitter', 'TwitterAPIcaller@index');
 
-Route::get('/climatechange', 'WebUploadController@index');
-Route::post('/upload_image', 'WebUploadController@uploadImage');
 
+// ========================================================================
 // Control panel routes
-Route::get('/controlpanel', 'ControlPanelController@index');
-Route::patch('/controlpanel/{configParam}', 'ControlPanelController@update');
+Route::get('/controlpanel', 'ControlPanelController@index')->middleware('auth');
+Route::post('/controlpanel/newevent', 'ControlPanelController@store')->middleware('auth');
+Route::patch('/controlpanel/{configParam}', 'ControlPanelController@update')->middleware('auth');;
 //Route::patch('/controlpanel/boolean/{configParam}', 'ControlPanelController@update');
+
+
+// ========================================================================
+// Auth routes
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

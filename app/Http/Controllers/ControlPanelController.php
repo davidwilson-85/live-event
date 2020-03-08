@@ -3,14 +3,34 @@
 namespace App\Http\Controllers;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Redirect;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\ConfigLiveevent;
+use App\Event;
 
 class ControlPanelController extends Controller
 {
 
-	// Display whole configuration
+    // Display main control panel info (list of events)
     public function index() {
+
+        // Get all user's events from DB
+        $user_id = auth()->user()->id;
+        
+        $user_events = \DB::table('events')
+            ->select('id', 'created_at')
+            ->where('user_id', $user_id)
+            ->get();
+
+        return view('control-panel', [
+            'user_events' => $user_events
+        ]);
+
+    }
+
+	// Display whole configuration
+    public function edit($id) {
 
     	//ConfigLiveevent::write('uploadedImages', 'true');
 
@@ -39,8 +59,40 @@ class ControlPanelController extends Controller
 
     }
 
-    // Update the specified configuration parameter
-    public function update($configParam) {
+    // Show form to create new event
+    public function create() {
+
+        // For now the form is integrated in the list view
+
+    }
+
+    // Store new event
+    public function store() {
+
+        // Store event in 'events' table
+        $user_id = auth()->user()->id;
+
+        $newEvent = new Event;
+        $newEvent->user_id = $user_id;
+        $newEvent->save();
+
+        // Make a copy of the 'config.template' file and name it with id of project
+
+        $contents = file_get_contents(app_path('ConfigFiles/config_template'));
+        file_put_contents(app_path('ConfigFiles/config'. $newEvent->id), $contents);
+        
+        //Using 'Storage::copy($origin, $destination)' did not work. After trying many things, it is possible that is is due to a composer dependency not installed
+
+        // Create new route(s) for this event
+
+
+
+        return Redirect::back();
+
+    }
+
+    // Update the specified configuration parameter of an event
+    public function update($id, $configParam) {
 
     	if (request('hidden') == 'string') {
 
@@ -58,6 +110,12 @@ class ControlPanelController extends Controller
     	
 		return back();
 
+    }
+
+    // Delete event and all related content in DB
+    public function destroy($id)
+    {
+        // Among other things, delete all the records in the 'tweets', 'uploadedImages' tables that correspond to this event.
     }
 
 }

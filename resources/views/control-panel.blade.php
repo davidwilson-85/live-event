@@ -3,61 +3,43 @@
 </h3>
 
 <p>
-	<form method="post" action="/controlpanel/name" id="form-update-name">
- 		{{ csrf_field() }}
- 		{{ method_field('PATCH') }}
+	@if (count($user_events) == 0)
 
- 		<label for="name"> Name: </label>
- 		<input type="text" id="name" name="newValue" placeholder=" {{ $name }} ">
- 		<input type="hidden" name="hidden" value="string">
- 		<button type="submit" name="update">Update</button>
- 	</form>
+		You have no events yet	
+
+	@else
+
+		@foreach ($user_events as $event)
+
+			{{ $event->id }}, {{ $event->created_at }} <br>
+
+		@endforeach
+
+	@endif
 </p>
 
 <p>
-	Security: {{ $security }}
-</p>
 
-<p>
-	Language: {{ $language }}
-</p>
+	Create new event:
 
-<p>
-	<form method="post" action="/controlpanel/web_enabled" id="form-update-web_enabled">
- 		{{ csrf_field() }}
- 		{{ method_field('PATCH') }}
+	<form method="post" action="/controlpanel/newevent">
 
- 		<input type="hidden" name="hidden" value="boolean">
+		{{ csrf_field() }}
 
- 		<label for="Web enabled">Web enabled:</label>
-		<input type="checkbox" id="web_enabled" name="boolean" {{ $web_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
- 	</form>
-</p>
+		Name of the event:<br>
+		<input name="name" type="text" placeholder="Film summit"><br>
+		Shortened name (URL-compatible):<br>
+		<input name="shortened-name" type="text" placeholder="fisum"><br>
 
-<p>
-	<form method="post" action="/controlpanel/web_upload_images" id="form-update-web_upload_images">
- 		{{ csrf_field() }}
- 		{{ method_field('PATCH') }}
+		Type of event:<br>
+		<select name="event-type" form="">
+			<option value="1">Short event</option>
+			<option value="2">Long-term event</option>
+		</select>
+		<br><br>
 
- 		<input type="hidden" name="hidden" value="boolean">
+		<button type="submit" name="store">Create</button>
 
- 		<label for="Web enabled">Web image upload enabled:</label>
- 		<input type="checkbox" id="web_upload_images" name="boolean" {{ $web_upload_images == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
- 	</form>
-</p>
+	</form>
 
-<p>
-	Web text upload enabled: {{ $web_upload_text }}
-</p>
-
-<p>
-	<form method="post" action="/controlpanel/twitter_enabled" id="form-update-twitter_enabled">
- 		{{ csrf_field() }}
- 		{{ method_field('PATCH') }}
-
- 		<input type="hidden" name="hidden" value="boolean">
-
- 		<label for="Twitter enabled">Twitter enabled:</label>
-		<input type="checkbox" id="twitter_enabled" name="boolean" {{ $twitter_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
- 	</form>
 </p>

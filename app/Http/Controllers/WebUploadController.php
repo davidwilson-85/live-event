@@ -9,9 +9,14 @@ use App\UploadedImage;
 
 class WebUploadController extends BaseController
 {
-    public function index() {
+    public function index($event_alias) {
 
-    	return view('web_upload_view');
+    	$event_id = 'get it from db';
+
+    	return view('web_upload_view', [
+    		'event_alias' => $event_alias,
+    		'event_id' => $event_id
+    	]);
 
     }
 

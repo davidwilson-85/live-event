@@ -1,9 +1,19 @@
+# This file contains complementary info to databse table 'events' (id, user_id)
+
+# 'config.template' is a template from where the config files of each event are created. Template files are named 'NNNNN_config', where NNNNN is the id of the event.
+
 #===========================================================================
 # General settings
 #===========================================================================
 
 # name: string. Name of the project
-name: ClimateChange
+name: Name
+
+# short_name: string. Alias of the project that will also be the url for web upload 
+short_name: shortname
+
+# title_image. Name/path of image to show as the official event image
+title_image: image.jpg
 
 # security: {moderator || free}
 security: free
@@ -13,10 +23,10 @@ security: free
 #===========================================================================
 
 # media_img: {true || false}
-media_img: true
+media_img: false
 
 # media_vid: {true || false}
-media_vid: true
+media_vid: false
 
 # language: {english || español || deutsch}
 language: english
@@ -28,25 +38,25 @@ language: english
 # Web upload
 
 # web_enabled: {true || false}
-web_enabled: true
+web_enabled: false
 
 # web_upload_images: {true || false}
 web_upload_images: false
 
 # web_upload_text: {true || false}
-web_upload_text: true
+web_upload_text: false
 
 #===========================================================================
 
 #  Twitter. Content from Twitter API
 
 # twitter_enabled: {true || false}
-twitter_enabled: true
+twitter_enabled: false
 
 # twitter_hashtags: Comma-separated list of hashtags
-twitter_hashtags: test1, test2
+twitter_hashtags: #hashtag1, #hashtag2
 
-# twitter_frequency: Frequency (units?) to call the twitter API to retrieve new tweets
+# twitter_frequency: Frequency (1/s) to call the twitter API to retrieve new tweets
 twitter_frequency: 5
 
 #===========================================================================
