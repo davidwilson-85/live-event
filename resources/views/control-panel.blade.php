@@ -11,8 +11,7 @@
 
 		@foreach ($user_events as $event)
 
-			{{ $event->event_alias }} -- 
-			Go to LiveView -- 
+			{{ $event->event_alias }} --  
 			<a href="/controlpanel/{{ $event->id }}">Edit</a> -- 
 			Delete
 			<br>

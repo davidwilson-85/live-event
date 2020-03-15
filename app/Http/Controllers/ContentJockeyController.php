@@ -9,12 +9,22 @@ Use App\UploadedImage;
 
 use DateTime;
 
+// This class deals with content that has to be deliverred to frontend Live View
 class ContentJockeyController extends Controller
 {
 
-	// This class deals with content that has to be deliverred to frontend Live View
+	// Initialize the LiveView by establishing which is the active event. To do so, I use a Session attribute ('current_event'). This way, AJAX calls as they are now, which do not know anything about the backend, can ake a generic request, but the backend checks the Session to know which event is active.
+	public function liveView_Initialize($event_id) {
 
-	public function weightedLive() {
+		session(['current_event' => $event_id]);
+		//return session()->all();
+
+		return view('live-view', ['event_id' => $event_id]);
+
+	}
+
+	// This function is called by AJAX and determines what is the next image to send back to view
+	public function liveView_Refresh() {
 
 		// Determine if need to return starred or regular content
 
@@ -22,13 +32,17 @@ class ContentJockeyController extends Controller
 
 		// Query last X elements in DB and. Maybe X should be a tunable parameter because in case of low inflow of tweets/images, it will exclude anything older and could result in too much repetition of latest X tweets/images
 
+		// Get currently displayed event in LiveView from the session
+
+		$event = session('current_event');
+
 		// Initialize $latestElements var and append different types of elements according to configuration of the app
 
 		$latestTweets = collect();
 		$latestWebUploads = collect();
 		$latestElements = array();
 
-		if (ConfigLiveevent::readConfig('twitter_enabled') == 'true') {
+		if (ConfigLiveevent::readConfig($event, 'twitter_enabled') == 'true') {
 
 			$latestTweets = Tweet::where('img_urls', '!=', 'no_imgs')->orderBy('id', 'desc')->take(25)->get();
 
@@ -38,7 +52,7 @@ class ContentJockeyController extends Controller
 
 		}
 
-		if (ConfigLiveevent::readConfig('web_enabled') == 'true') {
+		if (ConfigLiveevent::readConfig($event, 'web_enabled') == 'true') {
 
 			$latestWebUploads = UploadedImage::orderBy('id', 'desc')->take(25)->get();
 
@@ -134,7 +148,7 @@ class ContentJockeyController extends Controller
 
 			return json_encode($selected_element);
 
-			return view('weighted-live', ['selected_element' => $selected_element]);
+			return view('live-view', ['selected_element' => $selected_element]);
 
 		}
 

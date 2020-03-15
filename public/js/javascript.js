@@ -28,7 +28,7 @@ function ajax() {
 		}
 	};
 	
-	xmlhttp.open("GET", "/weightedlive/ajax", true);
+	xmlhttp.open("GET", "/liveview/ajax", true);
 	xmlhttp.send();
 }
 

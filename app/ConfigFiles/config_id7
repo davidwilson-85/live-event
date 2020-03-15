@@ -45,7 +45,7 @@ language: english
 # Web upload
 
 # web_enabled: {true || false}
-web_enabled: false
+web_enabled: true
 
 # web_upload_images: {true || false}
 web_upload_images: false
@@ -58,7 +58,7 @@ web_upload_text: false
 #  Twitter. Content from Twitter API
 
 # twitter_enabled: {true || false}
-twitter_enabled: false
+twitter_enabled: true
 
 # twitter_hashtags: Comma-separated list of hashtags
 twitter_hashtags: #hashtag1, #hashtag2

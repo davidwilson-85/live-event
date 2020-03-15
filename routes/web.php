@@ -21,10 +21,8 @@ Route::get('/', function () {
 
 // ========================================================================
 // Routes for Live View
-Route::get('/weightedlive', function() {
-	return view('weighted-live');
-});
-Route::get('/weightedlive/ajax', 'ContentJockeyController@weightedLive');
+Route::get('/liveview/init/{event_id}', 'ContentJockeyController@liveView_Initialize');
+Route::get('/liveview/ajax', 'ContentJockeyController@liveView_Refresh');
 
 
 // ========================================================================

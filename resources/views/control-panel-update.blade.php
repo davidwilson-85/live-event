@@ -3,7 +3,9 @@
 </h3>
 
 <p>
-	Alias (URL to acces for web-uploading to this event): {{ $event_alias }}
+	Alias (URL to acces for web-uploading to this event): {{ $event_alias }}. 
+
+	<a href="/liveview/init/{{ $id }}" target="_blank">Go to LiveView</a>
 </p>
 
 <p>
