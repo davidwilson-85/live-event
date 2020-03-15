@@ -19,7 +19,7 @@ class ControlPanelController extends Controller
         $user_id = auth()->user()->id;
         
         $user_events = \DB::table('events')
-            ->select('id', 'created_at')
+            ->select('id', 'event_alias', 'created_at')
             ->where('user_id', $user_id)
             ->get();
 
@@ -38,16 +38,19 @@ class ControlPanelController extends Controller
 
     	//ConfigLiveevent::writeConfig('twitter_state', 'false');
 
-    	$name = ConfigLiveevent::readConfig('name');
-    	$security = ConfigLiveevent::readConfig('security');
-    	$language = ConfigLiveevent::readConfig('language');
-    	$web_enabled = ConfigLiveevent::readConfig('web_enabled');
-    	$web_upload_images = ConfigLiveevent::readConfig('web_upload_images');
-    	$web_upload_text = ConfigLiveevent::readConfig('web_upload_text');
-        $twitter_enabled = ConfigLiveevent::readConfig('twitter_enabled');
+    	$name = ConfigLiveevent::readConfig($id, 'name');
+        $short_name = ConfigLiveevent::readConfig($id, 'short_name');
+    	$security = ConfigLiveevent::readConfig($id, 'security');
+    	$language = ConfigLiveevent::readConfig($id, 'language');
+    	$web_enabled = ConfigLiveevent::readConfig($id, 'web_enabled');
+    	$web_upload_images = ConfigLiveevent::readConfig($id, 'web_upload_images');
+    	$web_upload_text = ConfigLiveevent::readConfig($id, 'web_upload_text');
+        $twitter_enabled = ConfigLiveevent::readConfig($id, 'twitter_enabled');
     	
 
-    	return view('control-panel', [
+    	return view('control-panel-update', [
+            'id' => $id,
+            'event_alias' => $short_name,
     		'name' => $name, 
     		'security' => $security, 
     		'language' => $language,
@@ -74,14 +77,21 @@ class ControlPanelController extends Controller
 
         $newEvent = new Event;
         $newEvent->user_id = $user_id;
+        $newEvent->event_alias = request('event-alias');
         $newEvent->save();
 
         // Make a copy of the 'config.template' file and name it with id of project
 
         $contents = file_get_contents(app_path('ConfigFiles/config_template'));
-        file_put_contents(app_path('ConfigFiles/config'. $newEvent->id), $contents);
+        file_put_contents(app_path('ConfigFiles/config_id'. $newEvent->id), $contents);
         
         //Using 'Storage::copy($origin, $destination)' did not work. After trying many things, it is possible that is is due to a composer dependency not installed
+
+        // Set name and alias in the file
+
+        ConfigLiveevent::writeConfig($newEvent->id, 'id', $newEvent->id);
+        ConfigLiveevent::writeConfig($newEvent->id, 'name', request('name'));
+        ConfigLiveevent::writeConfig($newEvent->id, 'short_name', request('event-alias'));
 
         // Create new route(s) for this event
 
@@ -92,18 +102,21 @@ class ControlPanelController extends Controller
     }
 
     // Update the specified configuration parameter of an event
-    public function update($id, $configParam) {
+    public function update($event_id, $configParam) {
+
+        // WARNING!!!
+        // Check that the user trying to change event is the owner
 
     	if (request('hidden') == 'string') {
 
-    		ConfigLiveevent::writeConfig($configParam, request('newValue'));
+    		ConfigLiveevent::writeConfig($event_id, $configParam, request('newValue'));
 
     	} else if (request('hidden') == 'boolean') {
 
             if (request('boolean') == True) {
-                ConfigLiveevent::writeConfig($configParam, 'true');
+                ConfigLiveevent::writeConfig($event_id, $configParam, 'true');
             } else {
-                ConfigLiveevent::writeConfig($configParam, 'false');
+                ConfigLiveevent::writeConfig($event_id, $configParam, 'false');
             }
 
     	}
@@ -115,7 +128,13 @@ class ControlPanelController extends Controller
     // Delete event and all related content in DB
     public function destroy($id)
     {
-        // Among other things, delete all the records in the 'tweets', 'uploadedImages' tables that correspond to this event.
+        // WARNING!!!
+        // Check that the user trying to change event is the owner
+
+        // Delete
+        // - all the records in the 'tweets', 'uploadedImages' tables that correspond to this event.
+        // - config file.
+        // - stored images
     }
 
 }

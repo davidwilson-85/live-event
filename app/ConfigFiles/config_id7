@@ -7,17 +7,17 @@
 #===========================================================================
 
 # id: integer. Links this file to DB record in table events. 
-id: id
+id: 7
 
 #===========================================================================
 # General settings
 #===========================================================================
 
 # short_name: string. Alias of the project that will also be the url for web upload 
-short_name: shortname
+short_name: mtb
 
 # name: string. Name of the project
-name: Name
+name: Mountain Bike
 
 # title_image. Name/path of image to show as the official event image
 title_image: image.jpg

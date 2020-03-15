@@ -24,9 +24,9 @@ class ConfigLiveevent {
 	// Uses the 'param':'value' type of configuration file
 	// Loops through the file to find the parameter $parma
 	// Returns a string with the value of param
-	public static function readConfig($param) {
+	public static function readConfig($event_id, $param) {
 
-		$file = fopen(app_path('Http/Controllers/config'), 'r');
+		$file = fopen(app_path('ConfigFiles/config_id'. $event_id), 'r');
 		
 		while (!feof($file)) {
 
@@ -45,9 +45,9 @@ class ConfigLiveevent {
 	// Loops through array to find key of line that starts with $param
 	// Updates the info of the key with $param and $value
 	// For now it simply returns 'ok' 
-	public static function writeConfig($param, $value) {
+	public static function writeConfig($event_id, $param, $value) {
 
-		$file = file(app_path('Http/Controllers/config'));
+		$file = file(app_path('ConfigFiles/config_id'. $event_id));
 
 		foreach ($file as $key => $line) {
 			// Check if $param matches the beggining (strictly) of the line
@@ -55,7 +55,7 @@ class ConfigLiveevent {
 		}
 
 		$file[$key] = $param .": ". trim($value) ."\n";
-		file_put_contents(app_path('Http/Controllers/config'), $file);
+		file_put_contents(app_path('ConfigFiles/config_id'. $event_id), $file);
 
 		return 'ok';
 

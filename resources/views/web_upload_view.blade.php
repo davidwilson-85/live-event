@@ -1,6 +1,7 @@
 <p>Upload your image here</p>
 
-<p>You are upploading for event_alias {{ $event_alias }} and event_id {{ $event_id }}</p>
+<p>You are upploading for event: {{ $event_alias }}</p>
+<p>The event id is: {{ $event_id }}</p>
 
 <div class="">
 

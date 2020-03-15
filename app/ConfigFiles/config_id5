@@ -3,21 +3,14 @@
 # 'config.template' is a template from where the config files of each event are created. Template files are named 'NNNNN_config', where NNNNN is the id of the event.
 
 #===========================================================================
-# Identifier
-#===========================================================================
-
-# id: integer. Links this file to DB record in table events. 
-id: id
-
-#===========================================================================
 # General settings
 #===========================================================================
 
 # short_name: string. Alias of the project that will also be the url for web upload 
-short_name: shortname
+short_name: conc
 
 # name: string. Name of the project
-name: Name
+name: Concert
 
 # title_image. Name/path of image to show as the official event image
 title_image: image.jpg

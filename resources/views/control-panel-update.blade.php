@@ -3,7 +3,11 @@
 </h3>
 
 <p>
-	<form method="post" action="/controlpanel/name" id="form-update-name">
+	Alias (URL to acces for web-uploading to this event): {{ $event_alias }}
+</p>
+
+<p>
+	<form method="post" action="/controlpanel/{{ $id }}/name" id="form-update-name">
  		{{ csrf_field() }}
  		{{ method_field('PATCH') }}
 
@@ -23,7 +27,7 @@
 </p>
 
 <p>
-	<form method="post" action="/controlpanel/web_enabled" id="form-update-web_enabled">
+	<form method="post" action="/controlpanel/{{ $id }}/web_enabled" id="form-update-web_enabled">
  		{{ csrf_field() }}
  		{{ method_field('PATCH') }}
 
@@ -35,7 +39,7 @@
 </p>
 
 <p>
-	<form method="post" action="/controlpanel/web_upload_images" id="form-update-web_upload_images">
+	<form method="post" action="/controlpanel/{{ $id }}/web_upload_images" id="form-update-web_upload_images">
  		{{ csrf_field() }}
  		{{ method_field('PATCH') }}
 
@@ -51,7 +55,7 @@
 </p>
 
 <p>
-	<form method="post" action="/controlpanel/twitter_enabled" id="form-update-twitter_enabled">
+	<form method="post" action="/controlpanel/{{ $id }}/twitter_enabled" id="form-update-twitter_enabled">
  		{{ csrf_field() }}
  		{{ method_field('PATCH') }}
 

@@ -11,12 +11,24 @@ class WebUploadController extends BaseController
 {
     public function index($event_alias) {
 
-    	$event_id = 'get it from db';
+    	// Check if there is an event in the DB with the requested alias
+    	$events = \DB::table('events')
+                ->select('id', 'event_alias', 'id')
+                ->where('event_alias', $event_alias)
+                ->get();
 
-    	return view('web_upload_view', [
-    		'event_alias' => $event_alias,
-    		'event_id' => $event_id
-    	]);
+        if (count($events) == 1) {
+
+        	    return view('web_upload_view', [
+		    		'event_alias' => $event_alias,
+		    		'event_id' => $events[0]->id
+		    	]);
+
+        } else {
+
+        	return('Sorry, this page doesn\'t exist. Do you mean ...?Here find similar events in the DB to suggest to user.');
+        
+        }
 
     }
 
