@@ -12,6 +12,9 @@ name: ClimateChange
 # security: {moderator || free}
 security: free
 
+# type: {short || long}. Short = 
+security: free
+
 #===========================================================================
 # Type of media accepted
 #===========================================================================

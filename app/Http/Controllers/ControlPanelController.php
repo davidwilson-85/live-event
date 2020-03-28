@@ -32,6 +32,15 @@ class ControlPanelController extends Controller
 	// Display whole configuration
     public function edit($id) {
 
+        // Check if logged-in user is the owner of the event to edit (or system administrator). If not, return forbidden.
+
+        if (auth()->user()->id != Event::find($id)->user_id 
+            AND auth()->user()->role != 'system_admin') {
+
+            return 'This information is only avaiable for the owner of the event.';
+        
+        }
+
     	//ConfigLiveevent::write('uploadedImages', 'true');
 
     	//return ConfigLiveevent::read('source.web.uploadTexts');
