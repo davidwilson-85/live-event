@@ -13,10 +13,10 @@ id: id
 # General settings
 #===========================================================================
 
-# short_name: string. Alias of the project that will also be the url for web upload 
+# short_name: string. Alias of the project that will also be the url for web upload. The database table events also contains a column named event_alias, which I ignore for now.
 short_name: shortname
 
-# name: string. Name of the project
+# name: string. Name of the event
 name: Name
 
 # title_image. Name/path of image to show as the official event image
@@ -63,8 +63,8 @@ web_upload_text: false
 # twitter_enabled: {true || false}
 twitter_enabled: false
 
-# twitter_hashtags: Comma-separated list of hashtags
-twitter_hashtags: #hashtag1, #hashtag2
+# twitter_hashtags: Space-separated list of hashtags
+twitter_hashtags: #hashtag1 #hashtag2
 
 # twitter_frequency: Frequency (1/s) to call the twitter API to retrieve new tweets
 twitter_frequency: 5

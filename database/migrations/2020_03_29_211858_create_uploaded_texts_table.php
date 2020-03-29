@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumn extends Migration
+class CreateUploadedTextsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddColumn extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('event_manager')->after('name')->change();
+        Schema::create('uploaded_texts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('event_id');
+            $table->text('text_contents');
+            $table->integer('nbr_views');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddColumn extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('uploaded_texts');
     }
 }

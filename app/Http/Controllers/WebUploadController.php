@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
 use App\UploadedImage;
+use App\UploadedText;
 
 class WebUploadController extends BaseController
 {
@@ -59,6 +60,7 @@ class WebUploadController extends BaseController
 			$description->save();
 */
 			$newImage = new UploadedImage;
+			$newImage->event_id = $request->event_id;
 			$newImage->file_name = $image_name;
 			$newImage->caption = 'no caption';
 			$newImage->nbr_views = 0;
@@ -66,6 +68,18 @@ class WebUploadController extends BaseController
 
 	        return back();
 	    }
+
+	}
+
+	public function uploadText() {
+
+		$newText = new uploadedText;
+		$newText->event_id = request('event_id');
+		$newText->text_contents = request('text_contents');
+		$newText->nbr_views = 0;
+	    $newText->save();
+
+	    return back();
 
 	}
 }

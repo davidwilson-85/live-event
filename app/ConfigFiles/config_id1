@@ -7,7 +7,7 @@
 #===========================================================================
 
 # name: string. Name of the project
-name: test...
+name: Climate change
 
 # short_name: string. Alias of the project that will also be the url for web upload 
 short_name: climate
@@ -41,7 +41,7 @@ language: english
 web_enabled: true
 
 # web_upload_images: {true || false}
-web_upload_images: true
+web_upload_images: false
 
 # web_upload_text: {true || false}
 web_upload_text: false
@@ -54,7 +54,7 @@ web_upload_text: false
 twitter_enabled: true
 
 # twitter_hashtags: Comma-separated list of hashtags
-twitter_hashtags: #hashtag1, #hashtag2
+twitter_hashtags: #climate #climatechange
 
 # twitter_frequency: Frequency (1/s) to call the twitter API to retrieve new tweets
 twitter_frequency: 5

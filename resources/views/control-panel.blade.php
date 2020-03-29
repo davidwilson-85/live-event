@@ -11,7 +11,7 @@
 
 		@foreach ($user_events as $event)
 
-			{{ $event->event_alias }} --  
+			{{ $event->short_name }} --  
 			<a href="/controlpanel/{{ $event->id }}">Edit</a> -- 
 			Delete
 			<br>

@@ -49,5 +49,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 // ========================================================================
 // Web upload routes. This block should always be in position XXX, and the order of the route statements within the block must not be altered.
 Route::post('/upload_image', 'WebUploadController@uploadImage');
-Route::get('/climatechange', 'WebUploadController@index');
+Route::post('/upload_text', 'WebUploadController@uploadText');
+//Route::get('/climatechange', 'WebUploadController@index');
 Route::get('/{event_alias}', 'WebUploadController@index');

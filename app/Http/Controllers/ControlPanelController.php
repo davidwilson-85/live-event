@@ -19,9 +19,13 @@ class ControlPanelController extends Controller
         $user_id = auth()->user()->id;
         
         $user_events = \DB::table('events')
-            ->select('id', 'event_alias', 'created_at')
+            ->select('id','created_at')
             ->where('user_id', $user_id)
             ->get();
+
+        foreach ($user_events as $user_event) {
+            $user_event->short_name = ConfigLiveevent::readConfig($user_event->id, 'short_name');    
+        }
 
         return view('control-panel', [
             'user_events' => $user_events
@@ -55,7 +59,7 @@ class ControlPanelController extends Controller
     	$web_upload_images = ConfigLiveevent::readConfig($id, 'web_upload_images');
     	$web_upload_text = ConfigLiveevent::readConfig($id, 'web_upload_text');
         $twitter_enabled = ConfigLiveevent::readConfig($id, 'twitter_enabled');
-    	
+        $twitter_hashtags = ConfigLiveevent::readConfig($id, 'twitter_hashtags');
 
     	return view('control-panel-update', [
             'id' => $id,
@@ -66,7 +70,8 @@ class ControlPanelController extends Controller
     		'web_enabled' => $web_enabled,
     		'web_upload_images' => $web_upload_images,
     		'web_upload_text' => $web_upload_text,
-            'twitter_enabled' => $twitter_enabled
+            'twitter_enabled' => $twitter_enabled,
+            'twitter_hashtags' => $twitter_hashtags
     	]);
 
     }
@@ -112,9 +117,6 @@ class ControlPanelController extends Controller
 
     // Update the specified configuration parameter of an event
     public function update($event_id, $configParam) {
-
-        // WARNING!!!
-        // Check that the user trying to change event is the owner
 
     	if (request('hidden') == 'string') {
 

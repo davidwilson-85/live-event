@@ -18,10 +18,11 @@ class CreateUploadedImagesTable extends Migration
 
         Schema::create('uploaded_images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->integer('event_id');
             $table->string('file_name');
             $table->string('caption');
             $table->integer('nbr_views');
+            $table->timestamps();
         });
     }
 
