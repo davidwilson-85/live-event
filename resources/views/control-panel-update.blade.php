@@ -2,6 +2,11 @@
 	Live event - Control panel
 </h3>
 
+<p style="background-color: yellow; width:500px">
+	Stats ==================<br>
+	Here add stats of events
+</p>
+
 <p>
 	<a href="/liveview/init/{{ $id }}" target="_blank">Go to LiveView</a>
 </p>

@@ -26,7 +26,7 @@ title_image: image.jpg
 security: free
 
 # type: {hours || days}
-type: false
+type: hours
 
 #===========================================================================
 # Type of media accepted

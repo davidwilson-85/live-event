@@ -32,7 +32,8 @@ class ConfigLiveevent {
 
 			$split = explode(':', fgets($file));
 			if ($split[0] == $param) {
-				return trim($split[1]);
+				array_shift($split);
+				return trim(implode(':', $split)); // I do this to deal with time formats hh:mm
 			}
 		
 		}

@@ -1,29 +1,44 @@
 # This file contains complementary info to databse table 'events' (id, user_id)
 
-# 'config.template' is a template from where the config files of each event are created. Template files are named 'NNNNN_config', where NNNNN is the id of the event.
+# 'config_template' is a template from where the config files of each event are created. Template files are named 'NNNNN_config', where NNNNN is the id of the event.
 
 #===========================================================================
 # Identifier
 #===========================================================================
 
 # id: integer. Links this file to DB record in table events. 
-id: 
+id: 14
 
 #===========================================================================
 # General settings
 #===========================================================================
 
-# short_name: string. Alias of the project that will also be the url for web upload 
-short_name: finanz
+# short_name: string. Alias of the project that will also be the url for web upload. The database table events also contains a column named event_alias, which I ignore for now.
+short_name: findef
 
-# name: string. Name of the project
-name: Finanz
+# name: string. Name of the event
+name: weekengFalse
 
 # title_image. Name/path of image to show as the official event image
 title_image: image.jpg
 
 # security: {moderator || free}
 security: free
+
+# type: {hours || days}
+type: hours
+
+# date: only applies if type=hours
+date: 2020-04-04
+
+# date_interval: start and end dates (inclusive). Only applies if type=days
+date_interval: YYYY-MM-DD:YYYY-MM-DD
+
+# time_start: Time of event start (web upload opens; start calling APIs) 
+time_start: 16:00
+
+# time_stop: Time of event stop (web upload closes; stop calling APIs)
+time_stop: 17:00
 
 #===========================================================================
 # Type of media accepted
@@ -60,10 +75,10 @@ web_upload_text: false
 # twitter_enabled: {true || false}
 twitter_enabled: false
 
-# twitter_hashtags: Comma-separated list of hashtags
-twitter_hashtags: #hashtag1, #hashtag2
+# twitter_hashtags: Space-separated list of hashtags
+twitter_hashtags: #hashtag1 #hashtag2
 
-# twitter_frequency: Frequency (1/s) to call the twitter API to retrieve new tweets
+# twitter_frequency: Frequency (in min) to call the twitter API to retrieve new tweets
 twitter_frequency: 5
 
 #===========================================================================

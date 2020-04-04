@@ -17,6 +17,9 @@ Route::get('/', function () {
 });
 */
 
+// ========================================================================
+// Routes for testing
+Route::get('/test', 'TwitterAPIcaller@checkEventsScheduling');
 
 
 // ========================================================================
@@ -34,8 +37,9 @@ Route::get('/test_twitter', 'TwitterAPIcaller@index');
 // Control panel routes
 Route::get('/controlpanel', 'ControlPanelController@index')->middleware('auth');
 Route::post('/controlpanel/newevent', 'ControlPanelController@store')->middleware('auth');
-Route::get('/controlpanel/{id}', 'ControlPanelController@edit')->middleware('auth');
-Route::patch('/controlpanel/{id}/{configParam}', 'ControlPanelController@update')->middleware('auth');
+Route::get('/controlpanel/deleteevent/{event_id}', 'ControlPanelController@destroy')->middleware('auth');
+Route::get('/controlpanel/editevent/{event_id}', 'ControlPanelController@edit')->middleware('auth');
+Route::patch('/controlpanel/{id}/{configParam}', 'ControlPanelController@update')->middleware('auth'); // add /event/edit/ to this route
 //Route::patch('/controlpanel/boolean/{configParam}', 'ControlPanelController@update');
 
 

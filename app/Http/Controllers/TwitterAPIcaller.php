@@ -10,12 +10,114 @@ use Illuminate\Routing\Controller as BaseController;
 // Use TwitterAPI wrapper (https://github.com/J7mbo/twitter-api-php)
 use App\Http\Controllers\TwitterAPI\TwitterAPIExchange;
 
+use App\Event;
 use App\Tweet;
+
+use DateTime;
+use DateTimeZone;
 
 
 class TwitterAPIcaller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function checkEventsScheduling() {
+
+    	/*
+    	short_event:
+		D == date
+		T >= start_time
+		T <= end_time
+
+		long_event:
+		D >= start_date
+		D <= end_date
+		T >= start_time
+		T <= end_time
+
+		set Twitter command freq at 1 min
+
+		1 min	always
+		5 min	00,05,10,15,20,25,30,35,40,45,50,55     t / 5 = whole number
+		10 min	00,10,20,30,40,50                       t / 10 = whole number
+		...
+		60 min	00        								t / 60 = whole number
+
+		checkDate()->checkTime()->checkFfreq()
+		*/
+
+		// 1. Get current envents from db and their scheduling info
+
+		$current_events = \DB::table('events')->select('id')->get();
+
+		// 2. For each event, get scheduling info from config file
+
+		foreach ($current_events as $event) {
+
+			$event->type = ConfigLiveevent::readConfig($event->id, 'type');
+			$event->date = ConfigLiveevent::readConfig($event->id, 'date');
+			$event->date_interval = ConfigLiveevent::readConfig($event->id, 'date_interval');
+			$event->time_start = ConfigLiveevent::readConfig($event->id, 'time_start');
+			$event->time_stop = ConfigLiveevent::readConfig($event->id, 'time_stop');
+			$event->twitter_frequency = ConfigLiveevent::readConfig($event->id, 'twitter_frequency');
+
+		}
+
+		// 3. For each event, determine if it is due, and run method call()
+
+		/////////////////////////////////////////////////////////////////////////////////
+		//
+		// VERY IMPORTANT: At some point I will need to deal with different time zones...
+		//
+		/////////////////////////////////////////////////////////////////////////////////
+
+		$currentDateTime = new DateTime('', new DateTimeZone('Europe/Berlin'));
+	    $currentDateTimeFormatted = $currentDateTime->format('Y-m-d H:i:s');
+		$currentDate = substr($currentDateTimeFormatted, 0, 10);
+		$currentTime = substr($currentDateTimeFormatted, 11, 5);
+		$currentMinutes = substr($currentDateTimeFormatted, 14, 2);
+
+		//return array($currentDateTimeFormatted, $currentTime);
+
+		foreach ($current_events as $event) {
+
+			if ($event->type == 'hours') {
+
+				if ($event->date == $currentDate) {
+					$event->dayMatch = True;
+				} else {
+					$event->dayMatch = False;
+				}
+
+				if (strtotime($event->time_start) <= strtotime($currentTime) AND strtotime($event->time_stop) >= strtotime($currentTime)) {
+					$event->timeMatch = True;
+				} else {
+					$event->timeMatch = False;
+				}
+
+				if (is_int( $currentMinutes / $event->twitter_frequency )) {
+					$event->freqMatch = True;
+				} else {
+					$event->freqMatch = False;
+				}
+				
+
+			}
+
+		}
+
+		//return phpinfo();
+
+		return $current_events;
+
+		
+
+
+		// This should be completed in less than a minute (not a problem I guess)
+
+
+
+    }
 
     public function index() {
 

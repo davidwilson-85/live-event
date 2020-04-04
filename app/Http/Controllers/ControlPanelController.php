@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\ConfigLiveevent;
 use App\Event;
+use App\Tweet;
+use App\UploadedImage;
+use App\UploadedText;
 
 class ControlPanelController extends Controller
 {
@@ -24,7 +27,7 @@ class ControlPanelController extends Controller
             ->get();
 
         foreach ($user_events as $user_event) {
-            $user_event->short_name = ConfigLiveevent::readConfig($user_event->id, 'short_name');    
+            $user_event->short_name = ConfigLiveevent::readConfig($user_event->id, 'short_name');   
         }
 
         return view('control-panel', [
@@ -34,11 +37,12 @@ class ControlPanelController extends Controller
     }
 
 	// Display whole configuration
-    public function edit($id) {
+    public function edit($event_id) {
 
-        // Check if logged-in user is the owner of the event to edit (or system administrator). If not, return forbidden.
+        // Check if logged-in user is the owner of the event (or system administrator). If not, return forbidden.
+        // Reason: typing the id of the project in the address bar...
 
-        if (auth()->user()->id != Event::find($id)->user_id 
+        if (auth()->user()->id != Event::find($event_id)->user_id 
             AND auth()->user()->role != 'system_admin') {
 
             return 'This information is only avaiable for the owner of the event.';
@@ -51,18 +55,18 @@ class ControlPanelController extends Controller
 
     	//ConfigLiveevent::writeConfig('twitter_state', 'false');
 
-    	$name = ConfigLiveevent::readConfig($id, 'name');
-        $short_name = ConfigLiveevent::readConfig($id, 'short_name');
-    	$security = ConfigLiveevent::readConfig($id, 'security');
-    	$language = ConfigLiveevent::readConfig($id, 'language');
-    	$web_enabled = ConfigLiveevent::readConfig($id, 'web_enabled');
-    	$web_upload_images = ConfigLiveevent::readConfig($id, 'web_upload_images');
-    	$web_upload_text = ConfigLiveevent::readConfig($id, 'web_upload_text');
-        $twitter_enabled = ConfigLiveevent::readConfig($id, 'twitter_enabled');
-        $twitter_hashtags = ConfigLiveevent::readConfig($id, 'twitter_hashtags');
+    	$name = ConfigLiveevent::readConfig($event_id, 'name');
+        $short_name = ConfigLiveevent::readConfig($event_id, 'short_name');
+    	$security = ConfigLiveevent::readConfig($event_id, 'security');
+    	$language = ConfigLiveevent::readConfig($event_id, 'language');
+    	$web_enabled = ConfigLiveevent::readConfig($event_id, 'web_enabled');
+    	$web_upload_images = ConfigLiveevent::readConfig($event_id, 'web_upload_images');
+    	$web_upload_text = ConfigLiveevent::readConfig($event_id, 'web_upload_text');
+        $twitter_enabled = ConfigLiveevent::readConfig($event_id, 'twitter_enabled');
+        $twitter_hashtags = ConfigLiveevent::readConfig($event_id, 'twitter_hashtags');
 
     	return view('control-panel-update', [
-            'id' => $id,
+            'id' => $event_id,
             'event_alias' => $short_name,
     		'name' => $name, 
     		'security' => $security, 
@@ -107,9 +111,7 @@ class ControlPanelController extends Controller
         ConfigLiveevent::writeConfig($newEvent->id, 'name', request('name'));
         ConfigLiveevent::writeConfig($newEvent->id, 'short_name', request('event-alias'));
 
-        // Create new route(s) for this event
-
-
+        // Create new route(s) for this event -> For now this is sorted out outside this function. See 'WebUploadController@index' for uploading to an event.
 
         return Redirect::back();
 
@@ -137,15 +139,38 @@ class ControlPanelController extends Controller
     }
 
     // Delete event and all related content in DB
-    public function destroy($id)
+    public function destroy($event_id)
     {
-        // WARNING!!!
-        // Check that the user trying to change event is the owner
+        // Check if logged-in user is the owner of the event (or system administrator). If not, return forbidden.
+        // Reason: typing the id of the project in the address bar...
 
-        // Delete
-        // - all the records in the 'tweets', 'uploadedImages' tables that correspond to this event.
-        // - config file.
-        // - stored images
+        if (auth()->user()->id != Event::find($event_id)->user_id 
+            AND auth()->user()->role != 'system_admin') {
+
+            return 'This action is only avaiable for the owner of the event.';
+        
+        }
+
+
+        // Delete record in the events table (maybe events could be left in the table, and add a attribute status=current/deleted)
+        $event = Event::find($event_id);
+        $event->delete();
+
+        // Delete config file of event
+        $config_file = app_path('ConfigFiles/config_id'. $event_id);
+        unlink($config_file);
+
+        // Delete records that belong to this event in tables tweets, uploaded_imgs, uploaded_txts 
+        Tweet::where('event_id', '=', $event_id)->delete();
+        UploadedImage::where('event_id', '=', $event_id)->delete();
+        UploadedText::where('event_id', '=', $event_id)->delete();
+
+        // Delete stored images in this event
+        //
+        //
+        //
+
+        return back();
     }
 
 }
