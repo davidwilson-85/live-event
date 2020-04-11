@@ -79,7 +79,7 @@ class TwitterAPIcaller extends BaseController
 				$event->time_start = ConfigLiveevent::readConfig($event->id, 'time_start');
 				$event->time_stop = ConfigLiveevent::readConfig($event->id, 'time_stop');
 				$event->twitter_frequency = ConfigLiveevent::readConfig($event->id, 'twitter_frequency');
-				$event->keyword = ConfigLiveevent::readConfig($event->id, '');
+				$event->keyword = ConfigLiveevent::readConfig($event->id, 'twitter_keyword');
 
 				if ($event->type == 'hours') {
 
@@ -92,7 +92,7 @@ class TwitterAPIcaller extends BaseController
 
 							if (strtotime($event->time_start) <= strtotime($currentTime) AND strtotime($event->time_stop) >= strtotime($currentTime)) {
 							
-								callTwitter($event->id, $event->keyword);
+								$this->callTwitter($event->id, $event->keyword);
 							
 							}
 						}
@@ -104,14 +104,14 @@ class TwitterAPIcaller extends BaseController
 
 		}
 
-		return $current_events;
+		//return $current_events;
 
 		// This should be completed in less than a minute (not a problem I guess)
 
     }
 
 
-    public function callTwitter() {
+    public function callTwitter($event_id, $keyword) {
     	
     	//
     	// TO DO:
@@ -126,12 +126,12 @@ class TwitterAPIcaller extends BaseController
 
     	// Get highest (most recent) tweet_id_str from the database to call API asking only for higher ids
 		
-		$nbrTweets = Tweet::count();
+		$nbrTweets = Tweet::where('event_id', $event_id)->count();
 		
 		if ($nbrTweets == 0) {
 			$highestTweetIDinDB = 0;
 		} else {
-			$highestTweetIDinDB = Tweet::orderBy('tweet_id','desc')->first()->tweet_id;
+			$highestTweetIDinDB = Tweet::where('event_id', $event_id)->orderBy('tweet_id','desc')->first()->tweet_id;
 		}
 
 
@@ -152,7 +152,7 @@ class TwitterAPIcaller extends BaseController
 		);
 
 		$url = 'https://api.twitter.com/1.1/search/tweets.json';
-		$getfield = '?q=climate%change%20-filter:retweets&count=500&tweet_mode=extended&since_id='. $highestTweetIDinDB;
+		$getfield = '?q='. $keyword .'%20-filter:retweets&count=500&tweet_mode=extended&since_id='. $highestTweetIDinDB;
 		$requestMethod = 'GET';
 
 		$twitter = new TwitterAPIExchange($settings);
@@ -217,6 +217,7 @@ class TwitterAPIcaller extends BaseController
 		foreach ($tweets_info as $tweet_info) {
 
 			$tweet = new Tweet;
+			$tweet->event_id = $event_id;
 	    	$tweet->tweet_id = $tweet_info['tweet_id'];
 	    	$tweet->user_name = $tweet_info['user_name'];
 	    	$tweet->url_user_img = $tweet_info['user_profile_img'];
@@ -227,14 +228,13 @@ class TwitterAPIcaller extends BaseController
 		}
 
 		// For testing
-		//return $tweets_info;
-
-		// For testing
+		return $tweets_info;
 		//return view('twitter_view', ['tweets_info' => $tweets_info]);
 
     }
 
-
+    /*
+    // This is the old function called directly from the Scheduler
     public function index() {
     	
     	//
@@ -357,5 +357,6 @@ class TwitterAPIcaller extends BaseController
 		//return view('twitter_view', ['tweets_info' => $tweets_info]);
 
     }
+    */
     
 }

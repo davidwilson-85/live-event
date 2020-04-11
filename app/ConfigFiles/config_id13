@@ -14,10 +14,10 @@ id: 13
 #===========================================================================
 
 # short_name: string. Alias of the project that will also be the url for web upload. The database table events also contains a column named event_alias, which I ignore for now.
-short_name: finde
+short_name: pokemon
 
 # name: string. Name of the event
-name: weekend
+name: Pokemon
 
 # title_image. Name/path of image to show as the official event image
 title_image: image.jpg
@@ -38,7 +38,7 @@ date_interval: YYYY-MM-DD:YYYY-MM-DD
 time_start: 13:00
 
 # time_stop: Time of event stop (web upload closes; stop calling APIs)
-time_stop: 14:58
+time_stop: 23:59
 
 #===========================================================================
 # Type of media accepted
@@ -79,9 +79,9 @@ twitter_enabled: true
 twitter_hashtags: #hashtag1 #hashtag2
 
 # twitter_keyword: This is how this currently works
-twitter_keyword: wallstreet
+twitter_keyword: pokemon
 
 # twitter_frequency: Frequency (in min) to call the twitter API to retrieve new tweets
-twitter_frequency: 5
+twitter_frequency: 1
 
 #===========================================================================

@@ -1,16 +1,23 @@
 # This file contains complementary info to databse table 'events' (id, user_id)
 
-# 'config.template' is a template from where the config files of each event are created. Template files are named 'NNNNN_config', where NNNNN is the id of the event.
+# 'config_template' is a template from where the config files of each event are created. Template files are named 'NNNNN_config', where NNNNN is the id of the event.
+
+#===========================================================================
+# Identifier
+#===========================================================================
+
+# id: integer. Links this file to DB record in table events. 
+id: 15
 
 #===========================================================================
 # General settings
 #===========================================================================
 
-# name: string. Name of the project
-name: Mercadona
+# short_name: string. Alias of the project that will also be the url for web upload. The database table events also contains a column named event_alias, which I ignore for now.
+short_name: eurovision
 
-# short_name: string. Alias of the project that will also be the url for web upload 
-short_name: mercadona
+# name: string. Name of the event
+name: eurovision
 
 # title_image. Name/path of image to show as the official event image
 title_image: image.jpg
@@ -28,7 +35,7 @@ date: 2020-04-11
 date_interval: YYYY-MM-DD:YYYY-MM-DD
 
 # time_start: Time of event start (web upload opens; start calling APIs) 
-time_start: 13:00
+time_start: 10:00
 
 # time_stop: Time of event stop (web upload closes; stop calling APIs)
 time_stop: 23:59
@@ -53,13 +60,13 @@ language: english
 # Web upload
 
 # web_enabled: {true || false}
-web_enabled: true
+web_enabled: false
 
 # web_upload_images: {true || false}
-web_upload_images: true
+web_upload_images: false
 
 # web_upload_text: {true || false}
-web_upload_text: true
+web_upload_text: false
 
 #===========================================================================
 
@@ -68,13 +75,13 @@ web_upload_text: true
 # twitter_enabled: {true || false}
 twitter_enabled: true
 
-# twitter_hashtags: Comma-separated list of hashtags
-twitter_hashtags: #hashtag1, #hashtag2
+# twitter_hashtags: Space-separated list of hashtags
+twitter_hashtags: #hashtag1 #hashtag2
 
 # twitter_keyword: This is how this currently works
-twitter_keyword: mercadona
+twitter_keyword: eurovision
 
-# twitter_frequency: Frequency (1/s) to call the twitter API to retrieve new tweets
+# twitter_frequency: Frequency (in min) to call the twitter API to retrieve new tweets
 twitter_frequency: 1
 
 #===========================================================================

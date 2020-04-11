@@ -30,8 +30,20 @@ Main settings ===========================================
 </p>
 
 <p>
-	Event image: Here show as in first Laravel project.
+	Event image: Here show as in PPA project...
 </p>
+
+<div class="">
+	
+	<img id="" src="uploadedImages/img_1582922685_375689536.jpg" height="100px" width="100px">
+
+	<form enctype="multipart/form-data" method="post" action="/route">
+   	{{ csrf_field() }}
+   	<input class="input-file" name="imagen" id="imagen" type="file" onchange="this.form.submit()">
+   	<label for="imagen">Change</label>
+	</form>
+
+</div>
 
 <p>
 	Event length: Hours | Days

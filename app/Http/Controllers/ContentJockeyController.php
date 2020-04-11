@@ -44,7 +44,7 @@ class ContentJockeyController extends Controller
 
 		if (ConfigLiveevent::readConfig($event, 'twitter_enabled') == 'true') {
 
-			$latestTweets = Tweet::where('img_urls', '!=', 'no_imgs')->orderBy('id', 'desc')->take(25)->get();
+			$latestTweets = Tweet::where('img_urls', '!=', 'no_imgs')->where('event_id', $event)->orderBy('id', 'desc')->take(25)->get();
 
 			$latestTweets->each(function ($item, $key) {
 				$item->type = 'tweet';
@@ -54,7 +54,7 @@ class ContentJockeyController extends Controller
 
 		if (ConfigLiveevent::readConfig($event, 'web_enabled') == 'true') {
 
-			$latestWebUploads = UploadedImage::orderBy('id', 'desc')->take(25)->get();
+			$latestWebUploads = UploadedImage::where('event_id', $event)->orderBy('id', 'desc')->take(25)->get();
 
 			$latestWebUploads->each(function ($item, $key) {
 				$item->type = 'web_upload';

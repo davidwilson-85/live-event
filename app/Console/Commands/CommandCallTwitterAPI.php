@@ -41,6 +41,6 @@ class CommandCallTwitterAPI extends Command
     public function handle()
     {
         $TwitterAPIcaller = new TwitterAPIcaller();
-        $TwitterAPIcaller->index();
+        $TwitterAPIcaller->checkEventsScheduling();
     }
 }

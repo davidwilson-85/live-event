@@ -18,6 +18,21 @@ title_image: image.jpg
 # security: {moderator || free}
 security: free
 
+# type: {hours || days}
+type: hours
+
+# date: only applies if type=hours
+date: 2020-04-11
+
+# date_interval: start and end dates (inclusive). Only applies if type=days
+date_interval: YYYY-MM-DD:YYYY-MM-DD
+
+# time_start: Time of event start (web upload opens; start calling APIs) 
+time_start: 13:00
+
+# time_stop: Time of event stop (web upload closes; stop calling APIs)
+time_stop: 23:59
+
 #===========================================================================
 # Type of media accepted
 #===========================================================================
@@ -41,10 +56,10 @@ language: english
 web_enabled: true
 
 # web_upload_images: {true || false}
-web_upload_images: false
+web_upload_images: true
 
 # web_upload_text: {true || false}
-web_upload_text: false
+web_upload_text: true
 
 #===========================================================================
 
@@ -54,9 +69,12 @@ web_upload_text: false
 twitter_enabled: true
 
 # twitter_hashtags: Comma-separated list of hashtags
-twitter_hashtags: #climate #climatechange
+twitter_hashtags: #clima #globalwarming
+
+# twitter_keyword: This is how this currently works
+twitter_keyword: climate%change
 
 # twitter_frequency: Frequency (1/s) to call the twitter API to retrieve new tweets
-twitter_frequency: 5
+twitter_frequency: 1
 
 #===========================================================================

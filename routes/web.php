@@ -19,18 +19,14 @@ Route::get('/', function () {
 
 // ========================================================================
 // Routes for testing
-Route::get('/test', 'TwitterAPIcaller@checkEventsScheduling');
+Route::get('/test_twitter', 'TwitterAPIcaller@checkEventsScheduling');
+Route::get('/test_twitter2', 'TwitterAPIcaller@callTwitter');
 
 
 // ========================================================================
 // Routes for Live View
 Route::get('/liveview/init/{event_id}', 'ContentJockeyController@liveView_Initialize');
 Route::get('/liveview/ajax', 'ContentJockeyController@liveView_Refresh');
-
-
-// ========================================================================
-// Route to force calling Twitter API
-Route::get('/test_twitter', 'TwitterAPIcaller@index');
 
 
 // ========================================================================
