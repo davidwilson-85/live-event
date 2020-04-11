@@ -78,6 +78,9 @@ twitter_enabled: false
 # twitter_hashtags: Space-separated list of hashtags
 twitter_hashtags: #hashtag1 #hashtag2
 
+# twitter_keyword: This is how this currently works
+twitter_keyword: test
+
 # twitter_frequency: Frequency (in min) to call the twitter API to retrieve new tweets
 twitter_frequency: 5
 
