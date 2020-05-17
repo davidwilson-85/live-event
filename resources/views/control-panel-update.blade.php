@@ -1,126 +1,130 @@
-<h3>
-	Live event - Control panel
-</h3>
+@extends('layout-reg-user')
 
-<p style="background-color: yellow; width:500px">
-	Stats ==================<br>
-	Here add stats of events
-</p>
+@section('title', 'LE - Control Panel')
 
-<p>
-	<a href="/liveview/init/{{ $id }}" target="_blank">Go to LiveView</a>
-</p>
+@section('content')
 
-Main settings ===========================================
+	<h3>
+		{{ $name }}
+	</h3>
 
-<p>
-	<form method="post" action="/controlpanel/{{ $id }}/name" id="form-update-name">
- 		{{ csrf_field() }}
- 		{{ method_field('PATCH') }}
+	<p class="control-panel-tab-selector" style="background-color: yellow">
+		<a href="/liveview/init/{{ $id }}" target="_blank">Go to Live View</a> |
+		<a href="/{{ $event_alias }}">Go to Upload Page</a> |
+		<a href="#">See event stats</a> |
+		<a href="#">Moderator page</a>
+	</p>
 
- 		<label for="name"> Name: </label>
- 		<input type="text" id="name" name="newValue" placeholder=" {{ $name }} ">
- 		<input type="hidden" name="hidden" value="string">
- 		<button type="submit" name="update">Update</button>
- 	</form>
-</p>
+	<p>
+		<form method="post" action="/controlpanel/{{ $id }}/name" id="form-update-name">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
 
-<p>
-	Alias (URL to access for web-uploading to this event): <a href="/{{ $event_alias }}">livent.com/{{ $event_alias }}</a>
-</p>
+	 		<label for="name"> Name: </label>
+	 		<input type="text" id="name" name="newValue" placeholder=" {{ $name }} ">
+	 		<input type="hidden" name="hidden" value="string">
+	 		<button type="submit" name="update">Update</button>
+	 	</form>
+	</p>
 
-<p>
-	Event image: Here show as in PPA project...
-</p>
+	<p>
+		Alias (URL to access for web-uploading to this event): <a href="/{{ $event_alias }}">livent.com/{{ $event_alias }}</a>
+	</p>
 
-<div class="">
-	
-	<img id="" src="uploadedImages/img_1582922685_375689536.jpg" height="100px" width="100px">
+	<p>
+		Event image: Here show as in PPA project...
+	</p>
 
-	<form enctype="multipart/form-data" method="post" action="/route">
-   	{{ csrf_field() }}
-   	<input class="input-file" name="imagen" id="imagen" type="file" onchange="this.form.submit()">
-   	<label for="imagen">Change</label>
-	</form>
+	<div class="avatar">
+		
+		<img id="avatar-img" src="uploadedImages/img_1582922685_375689536.jpg" height="100px" width="100px">
 
-</div>
+		<form enctype="multipart/form-data" method="post" action="/route">
+	   	{{ csrf_field() }}
+	   	<input class="input-file" name="imagen" id="imagen" type="file" onchange="this.form.submit()">
+	   	<label for="imagen">Change</label>
+		</form>
 
-<p>
-	Event length: Hours | Days
-</p>
+	</div>
 
-<p>
-	Security: {{ $security }}
-	<br>
-	<a href="#">Go to moderator view</a>
-</p>
+	<p>
+		Event length: Hours | Days
+	</p>
 
-<p>
-	LiveView display mode: Single | Double | Triple | Grid | Mosaic
-</p>
+	<p>
+		Security: {{ $security }}
+		<br>
+		<a href="#">Go to moderator view</a>
+	</p>
 
-<p>
-	Language: {{ $language }}
-</p>
+	<p>
+		LiveView display mode: Single | Double | Triple | Grid | Mosaic
+	</p>
 
-Content settings ===========================================
+	<p>
+		Language: {{ $language }}
+	</p>
 
-<p>
-	<form method="post" action="/controlpanel/{{ $id }}/web_enabled" id="form-update-web_enabled">
- 		{{ csrf_field() }}
- 		{{ method_field('PATCH') }}
+	Content settings ===========================================
 
- 		<input type="hidden" name="hidden" value="boolean">
+	<p>
+		<form method="post" action="/controlpanel/{{ $id }}/web_enabled" id="form-update-web_enabled">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
 
- 		<label for="Web enabled">Web enabled:</label>
-		<input type="checkbox" id="web_enabled" name="boolean" {{ $web_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
- 	</form>
-</p>
+	 		<input type="hidden" name="hidden" value="boolean">
 
-<p>
-	<form method="post" action="/controlpanel/{{ $id }}/web_upload_images" id="form-update-web_upload_images">
- 		{{ csrf_field() }}
- 		{{ method_field('PATCH') }}
+	 		<label for="Web enabled">Web enabled:</label>
+			<input type="checkbox" id="web_enabled" name="boolean" {{ $web_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
+	 	</form>
+	</p>
 
- 		<input type="hidden" name="hidden" value="boolean">
+	<p>
+		<form method="post" action="/controlpanel/{{ $id }}/web_upload_images" id="form-update-web_upload_images">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
 
- 		<label for="Web enabled">Web image upload enabled:</label>
- 		<input type="checkbox" id="web_upload_images" name="boolean" {{ $web_upload_images == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
- 	</form>
-</p>
+	 		<input type="hidden" name="hidden" value="boolean">
 
-<p>
-	<form method="post" action="/controlpanel/{{ $id }}/web_upload_text" id="form-update-web_upload_text">
- 		{{ csrf_field() }}
- 		{{ method_field('PATCH') }}
+	 		<label for="Web enabled">Web image upload enabled:</label>
+	 		<input type="checkbox" id="web_upload_images" name="boolean" {{ $web_upload_images == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
+	 	</form>
+	</p>
 
- 		<input type="hidden" name="hidden" value="boolean">
+	<p>
+		<form method="post" action="/controlpanel/{{ $id }}/web_upload_text" id="form-update-web_upload_text">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
 
- 		<label for="Web enabled">Web text upload enabled:</label>
- 		<input type="checkbox" id="web_upload_text" name="boolean" {{ $web_upload_text == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
- 	</form>
-</p>
+	 		<input type="hidden" name="hidden" value="boolean">
 
-<p>
-	<form method="post" action="/controlpanel/{{ $id }}/twitter_enabled" id="form-update-twitter_enabled">
- 		{{ csrf_field() }}
- 		{{ method_field('PATCH') }}
+	 		<label for="Web enabled">Web text upload enabled:</label>
+	 		<input type="checkbox" id="web_upload_text" name="boolean" {{ $web_upload_text == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
+	 	</form>
+	</p>
 
- 		<input type="hidden" name="hidden" value="boolean">
+	<p>
+		<form method="post" action="/controlpanel/{{ $id }}/twitter_enabled" id="form-update-twitter_enabled">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
 
- 		<label for="Twitter enabled">Twitter enabled:</label>
-		<input type="checkbox" id="twitter_enabled" name="boolean" {{ $twitter_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
- 	</form>
-</p>
+	 		<input type="hidden" name="hidden" value="boolean">
 
-<p>
-	<form method="post" action="/controlpanel/{{ $id }}/twitter_hashtags" id="form-update-twitter_hashtags">
- 		{{ csrf_field() }}
- 		{{ method_field('PATCH') }}
+	 		<label for="Twitter enabled">Twitter enabled:</label>
+			<input type="checkbox" id="twitter_enabled" name="boolean" {{ $twitter_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
+	 	</form>
+	</p>
 
- 		<label for="name"> Twitter hashtags (separated by a space): </label>
- 		<input type="text" id="twitter_hashtags" name="newValue" placeholder="{{ $twitter_hashtags }}">
- 		<input type="hidden" name="hidden" value="string">
- 		<button type="submit" name="update">Update</button>
- 	</form>
-</p>
+	<p>
+		<form method="post" action="/controlpanel/{{ $id }}/twitter_hashtags" id="form-update-twitter_hashtags">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
+
+	 		<label for="name"> Twitter hashtags (separated by a space): </label>
+	 		<input type="text" id="twitter_hashtags" name="newValue" placeholder="{{ $twitter_hashtags }}">
+	 		<input type="hidden" name="hidden" value="string">
+	 		<button type="submit" name="update">Update</button>
+	 	</form>
+	</p>
+
+@endsection

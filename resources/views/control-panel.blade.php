@@ -1,49 +1,53 @@
-<h3>
-	Live event - Control panel
-</h3>
+@extends('layout-reg-user')
 
-<p>
-	@if (count($user_events) == 0)
+@section('title', 'LE - Edit Event')
 
-		You have no events yet	
+@section('content')
 
-	@else
+	<p>
+		@if (count($user_events) == 0)
 
-		@foreach ($user_events as $event)
+			You have no events yet	
 
-			{{ $event->short_name }} --  
-			<a href="/controlpanel/editevent/{{ $event->id }}">Edit</a> -- 
-			<a href="/controlpanel/deleteevent/{{ $event->id }}">Delete</a> --
-			<a href="/controlpanel/stats/{{ $event->id }}">Stats</a>
-			<br>
+		@else
 
-		@endforeach
+			@foreach ($user_events as $event)
 
-	@endif
-</p>
+				{{ $event->short_name }} --  
+				<a href="/controlpanel/editevent/{{ $event->id }}">Edit</a> -- 
+				<a href="/controlpanel/deleteevent/{{ $event->id }}">Delete</a> --
+				<a href="/controlpanel/stats/{{ $event->id }}">Stats</a>
+				<br>
 
-<p>
+			@endforeach
 
-	Create new event:
+		@endif
+	</p>
 
-	<form method="post" action="/controlpanel/newevent">
+	<p>
 
-		{{ csrf_field() }}
+		Create new event:
 
-		Name of the event:<br>
-		<input name="name" type="text" placeholder="Film summit"><br>
-		Shortened name (URL-compatible alias):<br>
-		<input name="event-alias" type="text" placeholder="fisum"><br>
+		<form method="post" action="/controlpanel/newevent">
 
-		Type of event:<br>
-		<select name="event-type" form="">
-			<option value="1">Short event</option>
-			<option value="2">Long-term event</option>
-		</select>
-		<br><br>
+			{{ csrf_field() }}
 
-		<button type="submit" name="store">Create</button>
+			Name of the event:<br>
+			<input name="name" type="text" placeholder="Film summit"><br>
+			Shortened name (URL-compatible alias):<br>
+			<input name="event-alias" type="text" placeholder="fisum"><br>
 
-	</form>
+			Type of event:<br>
+			<select name="event-type" form="">
+				<option value="1">Short event</option>
+				<option value="2">Long-term event</option>
+			</select>
+			<br><br>
 
-</p>
+			<button type="submit" name="store">Create</button>
+
+		</form>
+
+	</p>
+
+@endsection

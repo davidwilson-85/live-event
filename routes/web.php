@@ -32,6 +32,7 @@ Route::get('/liveview/ajax', 'ContentJockeyController@liveView_Refresh');
 // ========================================================================
 // Control panel routes
 Route::get('/controlpanel', 'ControlPanelController@index')->middleware('auth');
+Route::get('/controlpanel/billing', 'ControlPanelController@index')->middleware('auth');
 Route::post('/controlpanel/newevent', 'ControlPanelController@store')->middleware('auth');
 Route::get('/controlpanel/deleteevent/{event_id}', 'ControlPanelController@destroy')->middleware('auth');
 Route::get('/controlpanel/editevent/{event_id}', 'ControlPanelController@edit')->middleware('auth');
