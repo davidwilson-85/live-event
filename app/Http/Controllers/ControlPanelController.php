@@ -57,8 +57,12 @@ class ControlPanelController extends Controller
 
     	$name = ConfigLiveevent::readConfig($event_id, 'name');
         $short_name = ConfigLiveevent::readConfig($event_id, 'short_name');
+        $title_image = ConfigLiveevent::readConfig($event_id, 'title_image');
     	$security = ConfigLiveevent::readConfig($event_id, 'security');
-    	$language = ConfigLiveevent::readConfig($event_id, 'language');
+    	$date = ConfigLiveevent::readConfig($event_id, 'date');
+        $time_start = ConfigLiveevent::readConfig($event_id, 'time_start');
+        $time_stop = ConfigLiveevent::readConfig($event_id, 'time_stop');
+        $language = ConfigLiveevent::readConfig($event_id, 'language');
     	$web_enabled = ConfigLiveevent::readConfig($event_id, 'web_enabled');
     	$web_upload_images = ConfigLiveevent::readConfig($event_id, 'web_upload_images');
     	$web_upload_text = ConfigLiveevent::readConfig($event_id, 'web_upload_text');
@@ -66,10 +70,14 @@ class ControlPanelController extends Controller
         $twitter_hashtags = ConfigLiveevent::readConfig($event_id, 'twitter_hashtags');
 
     	return view('control-panel-update', [
-            'id' => $event_id,
+            'event_id' => $event_id,
             'event_alias' => $short_name,
-    		'name' => $name, 
-    		'security' => $security, 
+    		'name' => $name,
+            'title_image' => $title_image, 
+    		'security' => $security,
+            'date' => $date,
+            'time_start' => $time_start,
+            'time_stop' => $time_stop, 
     		'language' => $language,
     		'web_enabled' => $web_enabled,
     		'web_upload_images' => $web_upload_images,
@@ -77,6 +85,31 @@ class ControlPanelController extends Controller
             'twitter_enabled' => $twitter_enabled,
             'twitter_hashtags' => $twitter_hashtags
     	]);
+
+    }
+
+    // Change the event image of an event
+    public function uploadImage(Request $request) {
+        
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+
+            // Process image, change its name, and save it in folder /uploadedImages
+            $image = $request->file('image');
+            $image_name = 'image_prj_'. request('event_id') .'.'. $image->getClientOriginalExtension();
+            $dir_dest = public_path('/images/eventImages');
+            $image->move($dir_dest, $image_name);
+
+            // Write name of image in confog file. I need to do this because file extension (jpg, jpeg, png) is not know in advance
+            ConfigLiveevent::writeConfig(request('event_id'), 'title_image', $image_name);
+
+            // Por hacer: en caso de que el archivo de imagen no sobreescriba al preexistente, podría eliminarlo aquí.
+
+            return back();
+        }
 
     }
 

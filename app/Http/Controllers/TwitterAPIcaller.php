@@ -50,7 +50,7 @@ class TwitterAPIcaller extends BaseController
 		// 1. Get current envents from db and their scheduling info
 
 		$current_events = \DB::table('events')->select('id')->get();
-
+		
 
 		// 2. Obtain current day, time, etc
 

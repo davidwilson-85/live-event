@@ -13,7 +13,7 @@ name: Mercadona
 short_name: mercadona
 
 # title_image. Name/path of image to show as the official event image
-title_image: image.jpg
+title_image: image_prj_2.jpg
 
 # security: {moderator || free}
 security: free

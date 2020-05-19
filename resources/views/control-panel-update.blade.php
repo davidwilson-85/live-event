@@ -9,14 +9,14 @@
 	</h3>
 
 	<p class="control-panel-tab-selector" style="background-color: yellow">
-		<a href="/liveview/init/{{ $id }}" target="_blank">Go to Live View</a> |
+		<a href="/liveview/init/{{ $event_id }}" target="_blank">Go to Live View</a> |
 		<a href="/{{ $event_alias }}">Go to Upload Page</a> |
 		<a href="#">See event stats</a> |
 		<a href="#">Moderator page</a>
 	</p>
 
 	<p>
-		<form method="post" action="/controlpanel/{{ $id }}/name" id="form-update-name">
+		<form method="post" action="/controlpanel/{{ $event_id }}/name" id="form-update-name">
 	 		{{ csrf_field() }}
 	 		{{ method_field('PATCH') }}
 
@@ -32,23 +32,60 @@
 	</p>
 
 	<p>
-		Event image: Here show as in PPA project...
+		Event image:
 	</p>
 
 	<div class="avatar">
 		
-		<img id="avatar-img" src="uploadedImages/img_1582922685_375689536.jpg" height="100px" width="100px">
+		<img id="avatar-img" src="{{ URL::to('/') }}/images/eventImages/{{ $title_image }}" height="100px" width="100px">
 
-		<form enctype="multipart/form-data" method="post" action="/route">
-	   	{{ csrf_field() }}
-	   	<input class="input-file" name="imagen" id="imagen" type="file" onchange="this.form.submit()">
-	   	<label for="imagen">Change</label>
+		<form enctype="multipart/form-data" method="post" action="/controlpanel/editevent/{event_id}/uploadImage">
+	   		{{ csrf_field() }}
+	   		<input class="input-file" name="image" id="image" type="file" onchange="this.form.submit()">
+	   		<label for="image">Change</label>
+	   		<input type="hidden" name="event_id" value="{{ $event_id }}">
 		</form>
 
 	</div>
 
 	<p>
 		Event length: Hours | Days
+	</p>
+
+	<p>
+		<form method="post" action="/controlpanel/{{ $event_id }}/date" id="form-update-date">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
+
+	 		<label for="date"> Date: </label>
+	 		<input type="text" id="date" name="newValue" placeholder=" {{ $date }} ">
+	 		<input type="hidden" name="hidden" value="string">
+	 		<button type="submit" name="update">Update</button>
+	 	</form>
+	</p>
+	
+	<p>
+		<form method="post" action="/controlpanel/{{ $event_id }}/time_start" id="form-update-time_start">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
+
+	 		<label for="time_start"> Start: </label>
+	 		<input type="text" id="time_start" name="newValue" placeholder=" {{ $time_start }} ">
+	 		<input type="hidden" name="hidden" value="string">
+	 		<button type="submit" name="update">Update</button>
+	 	</form>
+	</p>
+
+	<p>
+		<form method="post" action="/controlpanel/{{ $event_id }}/time_stop" id="form-update-time_start">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
+
+	 		<label for="time_stop"> End: </label>
+	 		<input type="text" id="time_stop" name="newValue" placeholder=" {{ $time_stop }} ">
+	 		<input type="hidden" name="hidden" value="string">
+	 		<button type="submit" name="update">Update</button>
+	 	</form>
 	</p>
 
 	<p>
@@ -68,7 +105,7 @@
 	Content settings ===========================================
 
 	<p>
-		<form method="post" action="/controlpanel/{{ $id }}/web_enabled" id="form-update-web_enabled">
+		<form method="post" action="/controlpanel/{{ $event_id }}/web_enabled" id="form-update-web_enabled">
 	 		{{ csrf_field() }}
 	 		{{ method_field('PATCH') }}
 
@@ -80,7 +117,7 @@
 	</p>
 
 	<p>
-		<form method="post" action="/controlpanel/{{ $id }}/web_upload_images" id="form-update-web_upload_images">
+		<form method="post" action="/controlpanel/{{ $event_id }}/web_upload_images" id="form-update-web_upload_images">
 	 		{{ csrf_field() }}
 	 		{{ method_field('PATCH') }}
 
@@ -92,7 +129,7 @@
 	</p>
 
 	<p>
-		<form method="post" action="/controlpanel/{{ $id }}/web_upload_text" id="form-update-web_upload_text">
+		<form method="post" action="/controlpanel/{{ $event_id }}/web_upload_text" id="form-update-web_upload_text">
 	 		{{ csrf_field() }}
 	 		{{ method_field('PATCH') }}
 
@@ -104,7 +141,7 @@
 	</p>
 
 	<p>
-		<form method="post" action="/controlpanel/{{ $id }}/twitter_enabled" id="form-update-twitter_enabled">
+		<form method="post" action="/controlpanel/{{ $event_id }}/twitter_enabled" id="form-update-twitter_enabled">
 	 		{{ csrf_field() }}
 	 		{{ method_field('PATCH') }}
 
@@ -116,7 +153,7 @@
 	</p>
 
 	<p>
-		<form method="post" action="/controlpanel/{{ $id }}/twitter_hashtags" id="form-update-twitter_hashtags">
+		<form method="post" action="/controlpanel/{{ $event_id }}/twitter_hashtags" id="form-update-twitter_hashtags">
 	 		{{ csrf_field() }}
 	 		{{ method_field('PATCH') }}
 

@@ -7,17 +7,17 @@
 #===========================================================================
 
 # id: integer. Links this file to DB record in table events. 
-id: id
+id: 17
 
 #===========================================================================
 # General settings
 #===========================================================================
 
 # short_name: string. Alias of the project that will also be the url for web upload. The database table events also contains a column named event_alias, which I ignore for now.
-short_name: shortname
+short_name: wparty
 
 # name: string. Name of the event
-name: Name
+name: wednesdayParty
 
 # title_image. Name/path of image to show as the official event image
 title_image: default_title_image.jpg
@@ -26,19 +26,19 @@ title_image: default_title_image.jpg
 security: free
 
 # type: {hours || days}
-type: false
+type: hours
 
 # date: only applies if type=hours
-date: YYYY-MM-DD
+date: 2020-05-20
 
 # date_interval: start and end dates (inclusive). Only applies if type=days
 date_interval: YYYY-MM-DD:YYYY-MM-DD
 
 # time_start: Time of event start (web upload opens; start calling APIs) 
-time_start: hh:mm
+time_start: 00:00
 
 # time_stop: Time of event stop (web upload closes; stop calling APIs)
-time_stop: hh:mm
+time_stop: 02:00
 
 #===========================================================================
 # Type of media accepted
@@ -73,13 +73,13 @@ web_upload_text: false
 #  Twitter. Content from Twitter API
 
 # twitter_enabled: {true || false}
-twitter_enabled: false
+twitter_enabled: true
 
 # twitter_hashtags: Space-separated list of hashtags
 twitter_hashtags: #hashtag1 #hashtag2
 
 # twitter_keyword: This is how this currently works
-twitter_keyword: test
+twitter_keyword: party
 
 # twitter_frequency: Frequency (in min) to call the twitter API to retrieve new tweets
 twitter_frequency: 5

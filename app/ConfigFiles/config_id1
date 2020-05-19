@@ -13,7 +13,7 @@ name: Climate change
 short_name: climate
 
 # title_image. Name/path of image to show as the official event image
-title_image: image.jpg
+title_image: image_prj_1.jpg
 
 # security: {moderator || free}
 security: free

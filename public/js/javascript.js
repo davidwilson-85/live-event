@@ -22,7 +22,7 @@ function ajax() {
 
 			} else if (jsonResp.type == 'web_upload') {
 
-				document.getElementById("img").innerHTML = '<img src="uploadedImages/' + jsonResp.imgs[0] + '" width="100%">';
+				document.getElementById("img").innerHTML = '<img src="images/uploadedImages/' + jsonResp.imgs[0] + '" width="100%">';
 
 			}
 		}

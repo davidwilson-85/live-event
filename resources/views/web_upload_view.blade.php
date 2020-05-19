@@ -28,4 +28,6 @@
 		<button type="submit" name="update">Send!</button>
 	</form>
 
+   <p>It should be possible to shut the form after the event has finished</p>
+
 </div>

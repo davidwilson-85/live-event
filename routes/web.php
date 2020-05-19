@@ -20,7 +20,7 @@ Route::get('/', function () {
 // ========================================================================
 // Routes for testing
 Route::get('/test_twitter', 'TwitterAPIcaller@checkEventsScheduling');
-Route::get('/test_twitter2', 'TwitterAPIcaller@callTwitter');
+Route::get('/test_twitter2/{event_id}/{keyword}', 'TwitterAPIcaller@callTwitter');
 
 
 // ========================================================================
@@ -36,7 +36,8 @@ Route::get('/controlpanel/billing', 'ControlPanelController@index')->middleware(
 Route::post('/controlpanel/newevent', 'ControlPanelController@store')->middleware('auth');
 Route::get('/controlpanel/deleteevent/{event_id}', 'ControlPanelController@destroy')->middleware('auth');
 Route::get('/controlpanel/editevent/{event_id}', 'ControlPanelController@edit')->middleware('auth');
-Route::patch('/controlpanel/{id}/{configParam}', 'ControlPanelController@update')->middleware('auth'); // add /event/edit/ to this route
+Route::patch('/controlpanel/{event_id}/{configParam}', 'ControlPanelController@update')->middleware('auth'); // add /event/editConfigParam/ or similar to this route
+Route::post('/controlpanel/editevent/{event_id}/uploadImage', 'ControlPanelController@uploadImage')->middleware('auth');
 //Route::patch('/controlpanel/boolean/{configParam}', 'ControlPanelController@update');
 
 
