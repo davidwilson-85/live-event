@@ -7,7 +7,7 @@
 #===========================================================================
 
 # name: string. Name of the project
-name: Climate change
+name: climates changing
 
 # short_name: string. Alias of the project that will also be the url for web upload 
 short_name: climate
@@ -22,16 +22,16 @@ security: free
 type: hours
 
 # date: only applies if type=hours
-date: 2020-04-11
+date: 2020-05-20
 
 # date_interval: start and end dates (inclusive). Only applies if type=days
 date_interval: YYYY-MM-DD:YYYY-MM-DD
 
 # time_start: Time of event start (web upload opens; start calling APIs) 
-time_start: 13:00
+time_start: 22:00
 
 # time_stop: Time of event stop (web upload closes; stop calling APIs)
-time_stop: 23:59
+time_stop: 23:30
 
 #===========================================================================
 # Type of media accepted
@@ -72,9 +72,9 @@ twitter_enabled: true
 twitter_hashtags: #clima #globalwarming
 
 # twitter_keyword: This is how this currently works
-twitter_keyword: climate%change
+twitter_keyword: party
 
 # twitter_frequency: Frequency (1/s) to call the twitter API to retrieve new tweets
-twitter_frequency: 1
+twitter_frequency: 5
 
 #===========================================================================

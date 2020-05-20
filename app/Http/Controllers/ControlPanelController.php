@@ -68,6 +68,8 @@ class ControlPanelController extends Controller
     	$web_upload_text = ConfigLiveevent::readConfig($event_id, 'web_upload_text');
         $twitter_enabled = ConfigLiveevent::readConfig($event_id, 'twitter_enabled');
         $twitter_hashtags = ConfigLiveevent::readConfig($event_id, 'twitter_hashtags');
+        $twitter_keyword = ConfigLiveevent::readConfig($event_id, 'twitter_keyword');
+        $twitter_frequency = ConfigLiveevent::readConfig($event_id, 'twitter_frequency');
 
     	return view('control-panel-update', [
             'event_id' => $event_id,
@@ -83,7 +85,9 @@ class ControlPanelController extends Controller
     		'web_upload_images' => $web_upload_images,
     		'web_upload_text' => $web_upload_text,
             'twitter_enabled' => $twitter_enabled,
-            'twitter_hashtags' => $twitter_hashtags
+            'twitter_hashtags' => $twitter_hashtags,
+            'twitter_keyword' => $twitter_keyword,
+            'twitter_frequency' => $twitter_frequency
     	]);
 
     }

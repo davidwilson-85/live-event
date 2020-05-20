@@ -102,7 +102,7 @@
 		Language: {{ $language }}
 	</p>
 
-	Content settings ===========================================
+	===========================================
 
 	<p>
 		<form method="post" action="/controlpanel/{{ $event_id }}/web_enabled" id="form-update-web_enabled">
@@ -140,6 +140,8 @@
 	 	</form>
 	</p>
 
+	===========================================
+
 	<p>
 		<form method="post" action="/controlpanel/{{ $event_id }}/twitter_enabled" id="form-update-twitter_enabled">
 	 		{{ csrf_field() }}
@@ -153,12 +155,36 @@
 	</p>
 
 	<p>
-		<form method="post" action="/controlpanel/{{ $event_id }}/twitter_hashtags" id="form-update-twitter_hashtags">
+		<form method="post" action="/controlpanel/{{ $event_id }}/twitter_keyword" id="form-update-twitter_keyword">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
+
+	 		<label for="name"> Twitter keyword: </label>
+	 		<input type="text" id="twitter_keyword" name="newValue" placeholder="{{ $twitter_keyword }}">
+	 		<input type="hidden" name="hidden" value="string">
+	 		<button type="submit" name="update">Update</button>
+	 	</form>
+	</p>
+
+	<p>
+	 	<form method="post" action="/controlpanel/{{ $event_id }}/twitter_hashtags" id="form-update-twitter_hashtags">
 	 		{{ csrf_field() }}
 	 		{{ method_field('PATCH') }}
 
 	 		<label for="name"> Twitter hashtags (separated by a space): </label>
 	 		<input type="text" id="twitter_hashtags" name="newValue" placeholder="{{ $twitter_hashtags }}">
+	 		<input type="hidden" name="hidden" value="string">
+	 		<button type="submit" name="update">Update</button>
+	 	</form>
+	</p>
+
+	<p>
+	 	<form method="post" action="/controlpanel/{{ $event_id }}/twitter_frequency" id="form-update-twitter_frequency">
+	 		{{ csrf_field() }}
+	 		{{ method_field('PATCH') }}
+
+	 		<label for="name"> Twitter frequency: </label>
+	 		<input type="text" id="twitter_frequency" name="newValue" placeholder="{{ $twitter_frequency }}">
 	 		<input type="hidden" name="hidden" value="string">
 	 		<button type="submit" name="update">Update</button>
 	 	</form>
