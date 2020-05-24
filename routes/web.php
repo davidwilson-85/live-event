@@ -19,6 +19,10 @@ Route::get('/', function () {
 
 // ========================================================================
 // Routes for testing
+Route::get('/test', function() {
+	//return session()->all();
+	return session('theme');
+});
 Route::get('/test_twitter', 'TwitterAPIcaller@checkEventsScheduling');
 Route::get('/test_twitter2/{event_id}/{keyword}', 'TwitterAPIcaller@callTwitter');
 
@@ -39,6 +43,17 @@ Route::get('/controlpanel/editevent/{event_id}', 'ControlPanelController@edit')-
 Route::patch('/controlpanel/{event_id}/{configParam}', 'ControlPanelController@update')->middleware('auth'); // add /event/editConfigParam/ or similar to this route
 Route::post('/controlpanel/editevent/{event_id}/uploadImage', 'ControlPanelController@uploadImage')->middleware('auth');
 //Route::patch('/controlpanel/boolean/{configParam}', 'ControlPanelController@update');
+
+
+// ========================================================================
+// Theme routes [https://laracasts.com/discuss/channels/laravel/what-i-can-do-to-have-dark-mode-in-laravel-6]
+Route::get('/theme/switch', function() {
+	if (!session()->has('theme')) {
+		session(['theme' => 'dark']);
+	}
+	session('theme') == 'light' ? session(['theme' => 'dark']) : session(['theme' => 'light']);
+	return back();
+});
 
 
 // ========================================================================

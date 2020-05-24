@@ -1,0 +1,109 @@
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Jost', sans-serif;
+	padding: auto;
+}
+
+.header {
+	margin: 15px auto 15px auto;
+	width: 700px;
+	vertical-align: top;
+}
+
+#header-title {
+	margin: 0 150px 0 0;
+	font-family: 'Bebas Neue', cursive;
+	font-size: 40px;
+	color: rgb(180,180,180);
+}
+
+#header-text {
+	margin-top: 0px;
+}
+
+.header-element {
+	display: inline;
+	width: 50%;
+}
+
+.subheader {
+	margin: 10px auto 15px auto;
+	width: 700px;
+	padding: 10px;
+	border-top: 1px solid rgb(20,20,20);
+	border-left: 1px solid rgb(20,20,20);
+	border-right: 1px solid rgb(20,20,20);
+	border-bottom: none;
+	border-radius: 10px 10px 0px 0px;
+}
+
+.subheader-button {
+	padding: 5px 15px;
+	margin-right: 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: gray;
+	color: rgb(200,200,200);
+	display: inline;
+}
+
+
+
+
+
+
+h2 {
+	font-family: 'Bebas Neue', cursive;
+	font-size: 25px;
+	color: rgb(150,150,150);
+	margin: 15px 0px 0px 0px;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+}
+
+a:hover {
+	color: red;
+}
+
+
+
+
+/*==============================================
+Control Panel
+==============================================*/
+
+.avatar {
+	grid-area: avatar;
+	/*background-color: pink;*/
+}
+
+#avatar-img {
+	margin: 0 75px 0 30px;
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.input-file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.input-file + label {
+    margin: 0 0 0 75px;
+    cursor: pointer;
+    color: blue;
+}
+
+.input-file + label:hover {
+	color: green;
+}

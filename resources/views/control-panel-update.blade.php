@@ -4,9 +4,9 @@
 
 @section('content')
 
-	<h3>
+	<h2>
 		{{ $name }}
-	</h3>
+	</h2>
 
 	<p class="control-panel-tab-selector" style="background-color: yellow">
 		<a href="/liveview/init/{{ $event_id }}" target="_blank">Go to Live View</a> |
