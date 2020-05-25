@@ -11,6 +11,53 @@
 
 		@else
 
+			<table id="table-events">
+				<tr>
+					<th>
+						Name
+					</td>
+					<th>
+						Status
+					</td>
+					<th>
+						Edit
+					</td>
+				</tr>
+				<tr>
+					<td>
+						climate
+					</td>
+					<td>
+						Upcomming
+					</td>
+					<td>
+						Edit
+					</td>
+				</tr>
+				<tr>
+					<td>
+						mercadona
+					</td>
+					<td>
+						Live now!
+					</td>
+					<td>
+						Edit
+					</td>
+				</tr>
+				<tr>
+					<td>
+						wparty
+					</td>
+					<td>
+						Closed
+					</td>
+					<td>
+						Edit
+					</td>
+				</tr>
+			</table>
+
 			@foreach ($user_events as $event)
 
 				{{ $event->short_name }} --  

@@ -5,8 +5,8 @@ body {
 	padding: auto;
 }
 
-.header {
-	margin: 15px auto 15px auto;
+#header {
+	margin: 15px auto 10px auto;
 	width: 700px;
 	vertical-align: top;
 }
@@ -27,28 +27,44 @@ body {
 	width: 50%;
 }
 
-.subheader {
-	margin: 10px auto 15px auto;
+#subheader {
+	margin: 5px auto 15px auto;
 	width: 700px;
-	padding: 10px;
-	border-top: 1px solid rgb(20,20,20);
-	border-left: 1px solid rgb(20,20,20);
-	border-right: 1px solid rgb(20,20,20);
-	border-bottom: none;
-	border-radius: 10px 10px 0px 0px;
+	padding: 10px 0;
 }
 
 .subheader-button {
-	padding: 5px 15px;
+	padding: 4px 15px;
 	margin-right: 10px;
-	border: none;
-	border-radius: 5px;
-	background-color: gray;
-	color: rgb(200,200,200);
+	border: 1px solid rgba(0, 0, 0, 0);
+	border-radius: 2px;
+	color: rgb(70,70,70);
 	display: inline;
 }
 
+#suheader-button-account {
+	background-color: rgb(0,225,255);
+}
 
+#suheader-button-events {
+	background-color: rgb(255,255,0);
+}
+
+#suheader-button-help {
+	background-color: rgb(255,0,255);
+}
+
+#content {
+	margin: 0px auto 15px auto;
+	width: 700px;
+	padding: 0px 20px 0px 20px;
+
+	border-top: 1px solid gray;
+	border-left: 1px solid gray;
+	border-right: 1px solid gray;
+	border-bottom: none;
+	border-radius: 10px 10px 0px 0px;
+}
 
 
 
@@ -60,14 +76,7 @@ h2 {
 	margin: 15px 0px 0px 0px;
 }
 
-a {
-	text-decoration: none;
-	color: blue;
-}
 
-a:hover {
-	color: red;
-}
 
 
 
@@ -106,4 +115,33 @@ Control Panel
 
 .input-file + label:hover {
 	color: green;
+}
+
+
+/*==============================================
+Control Panel - List of events
+==============================================*/
+
+#table-events {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#table-events table, #table-events th, #table-events td {
+	border-bottom: 1px solid #ddd;
+}
+
+#table-events th {
+	background-color: gray;
+	text-align: left;
+}
+
+#table-events th, #table-events td {
+	height: 30px;
+	padding: 5px 10px;
+	vertical-align: middle;
+}
+
+#table-events tr:hover {
+	background-color: #f5f5f5;
 }

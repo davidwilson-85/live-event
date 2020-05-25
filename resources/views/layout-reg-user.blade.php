@@ -17,7 +17,7 @@
 </head>
 <body>
 
-	<div class="header">
+	<div id="header">
 
 		<h3 id="header-title" class="header-element">
 			/ Live event /
@@ -39,18 +39,23 @@
 	            @csrf
 	        </form>
 
+	        <br>
+
 	    </div>
 
 	</div>
 
-	<div class="subheader">
-		<a class="subheader-button" href="/controlpanel">My account</a>
-		<a class="subheader-button" href="/controlpanel">My events</a>
-		<a class="subheader-button" href="/controlpanel/billing">Billing</a>
-		<a class="subheader-button" href="controlpanel/help">Help</a>
+	<div id="subheader">
+		<a class="subheader-button" id="suheader-button-account" href="/controlpanel">My account</a>
+		<a class="subheader-button" id="suheader-button-events" href="/controlpanel">My events</a>
+		<a class="subheader-button" id="suheader-button-help" href="/controlpanel/help">Help</a>
 	</div>
+
+	<div id="content">
 	
-	@yield('content')
+		@yield('content')
+
+	</div>
 
 </body>
 </html>

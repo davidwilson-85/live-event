@@ -2,3 +2,17 @@ body {
 	background-color: rgb(50,50,50);
 	color: rgb(230,230,230);
 }
+
+a {
+	text-decoration: none;
+	color: red;
+}
+
+a:hover {
+	color: yellow;
+}
+
+.subheader-button:hover {
+	color: rgb(50,50,50);
+	border: 1px solid rgb(230,230,230);
+}
