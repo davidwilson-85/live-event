@@ -16,6 +16,7 @@ body {
 	font-family: 'Bebas Neue', cursive;
 	font-size: 40px;
 	color: rgb(180,180,180);
+	float: left;
 }
 
 #header-text {
@@ -59,15 +60,9 @@ body {
 	width: 700px;
 	padding: 0px 20px 0px 20px;
 
-	border-top: 1px solid gray;
-	border-left: 1px solid gray;
-	border-right: 1px solid gray;
-	border-bottom: none;
-	border-radius: 10px 10px 0px 0px;
+	border: 1px solid rgb(200,200,200);
+	border-radius: 10px;
 }
-
-
-
 
 h2 {
 	font-family: 'Bebas Neue', cursive;
@@ -76,9 +71,62 @@ h2 {
 	margin: 15px 0px 0px 0px;
 }
 
+.section-title {
+	font-size: 18px;
+}
 
 
 
+/*==============================================
+Form elements
+==============================================*/
+
+.newEvent-element {
+	width: 90%;
+	height: 40px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.newEvent-label {
+	width: 55%;
+	height: 40px;
+	float: left;
+	padding: 3px 3px 0 15px;
+}
+
+.newEvent-input {
+	height: 40px;
+}
+
+.text-input {
+	font-family: 'Jost', sans-serif;
+	font-size: 16px;
+	padding: 5px;
+	height: 23px;
+	border: none;
+	border-bottom: 1px solid rgb(100,100,100);
+	background-color: rgb(200,200,200);
+}
+
+.dropdown-list {
+	font-family: 'Jost', sans-serif;
+	font-size: 16px;
+	padding: 5px;
+	height: 50px;
+	border: 1px solid green;
+}
+
+.form-button {
+	margin: 50px;
+	padding: 4px 15px;
+	border: 1px solid rgba(0, 0, 0, 0);
+	background-color: rgb(255,71,25);
+	border-radius: 2px;
+	color: rgb(200,200,200);
+	font-family: 'Jost', sans-serif;
+	font-size: 16px;
+}
 
 
 /*==============================================
@@ -125,6 +173,7 @@ Control Panel - List of events
 #table-events {
 	width: 100%;
 	border-collapse: collapse;
+	table-layout: fixed; /* Spreads the TDs evenly accross the width of the table */
 }
 
 #table-events table, #table-events th, #table-events td {
@@ -132,8 +181,9 @@ Control Panel - List of events
 }
 
 #table-events th {
-	background-color: gray;
+	background-color: rgb(227,227,227);
 	text-align: left;
+	font-weight: normal;
 }
 
 #table-events th, #table-events td {

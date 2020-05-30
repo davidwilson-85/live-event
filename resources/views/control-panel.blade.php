@@ -4,12 +4,14 @@
 
 @section('content')
 
-	<p>
+	<div>
 		@if (count($user_events) == 0)
 
 			You have no events yet	
 
 		@else
+
+			<p class="section-title">These are your events:</p>
 
 			<table id="table-events">
 				<tr>
@@ -20,81 +22,72 @@
 						Status
 					</td>
 					<th>
-						Edit
+						Operations
 					</td>
 				</tr>
-				<tr>
-					<td>
-						climate
-					</td>
-					<td>
-						Upcomming
-					</td>
-					<td>
-						Edit
-					</td>
-				</tr>
-				<tr>
-					<td>
-						mercadona
-					</td>
-					<td>
-						Live now!
-					</td>
-					<td>
-						Edit
-					</td>
-				</tr>
-				<tr>
-					<td>
-						wparty
-					</td>
-					<td>
-						Closed
-					</td>
-					<td>
-						Edit
-					</td>
-				</tr>
+
+				@foreach ($user_events as $event)
+
+					<tr>
+						<td>
+							/{{ $event->short_name }}
+						</td>
+						<td>
+							Live Now!
+						</td>
+						<td>
+							<a href="/controlpanel/editevent/{{ $event->id }}">Edit</a> 
+							<a href="/controlpanel/deleteevent/{{ $event->id }}">Delete</a> 
+							<a href="/controlpanel/stats/{{ $event->id }}">Stats</a>
+						</td>
+					</tr>
+
+				@endforeach
+
 			</table>
 
-			@foreach ($user_events as $event)
-
-				{{ $event->short_name }} --  
-				<a href="/controlpanel/editevent/{{ $event->id }}">Edit</a> -- 
-				<a href="/controlpanel/deleteevent/{{ $event->id }}">Delete</a> --
-				<a href="/controlpanel/stats/{{ $event->id }}">Stats</a>
-				<br>
-
-			@endforeach
-
 		@endif
-	</p>
+	</div>
 
-	<p>
+	<div>
 
-		Create new event:
+		<p class="section-title">Create new event:</p>
 
 		<form method="post" action="/controlpanel/newevent">
 
 			{{ csrf_field() }}
 
-			Name of the event:<br>
-			<input name="name" type="text" placeholder="Film summit"><br>
-			Shortened name (URL-compatible alias):<br>
-			<input name="event-alias" type="text" placeholder="fisum"><br>
+			<div class="newEvent-element">
+				<div class="newEvent-label">
+					Name of the event:
+				</div>
+				<div class="newEvent-input">
+					<input class="text-input" name="name" type="text" placeholder="Film summit">
+				</div>
+			</div>
+			<div class="newEvent-element">
+				<div class="newEvent-label">
+					Shortened name (URL-compatible alias):
+				</div> 
+				<div class="newEvent-input">
+					<input class="text-input" name="event-alias" type="text" placeholder="fisum">
+				</div>
+			</div>
+			<div class="newEvent-element">
+				<div class="newEvent-label">
+					Type of event:
+				</div>
+				<div class="newEvent-input">
+					<select class="dropdown-list" name="event-type" form="">
+						<option value="1">Short event</option>
+						<option value="2">Long-term event</option>
+					</select>
+				</div>
 
-			Type of event:<br>
-			<select name="event-type" form="">
-				<option value="1">Short event</option>
-				<option value="2">Long-term event</option>
-			</select>
-			<br><br>
-
-			<button type="submit" name="store">Create</button>
+			<button class="form-button" type="submit" name="store">Create</button>
 
 		</form>
 
-	</p>
+	</div>
 
 @endsection
