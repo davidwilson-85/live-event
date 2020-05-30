@@ -144,12 +144,7 @@ class TwitterAPIcaller extends BaseController
 
 		// From Twitter API docs: "since_id" = Returns results with an ID greater than (that is, more recent than) the specified ID. There are limits to the number of Tweets which can be accessed through the API. If the limit of Tweets has occured since the since_id, the since_id will be forced to the oldest ID available.
 
-		$settings = array(
-		    'oauth_access_token' => "2769937384-CQIhnchVnKbE4LkE1ovxIf4ABFmxcbkIPELfduY",
-		    'oauth_access_token_secret' => "WmvmmK1qFAK2dShvipvqZ5pNydNziMOoRfwTzRzangxiC",
-		    'consumer_key' => "t8a3bkcnnQl8Pfb58yxOBe7XP",
-		    'consumer_secret' => "pJbY2Bc5eaCHrV3z1ueCYEIvCivhJlgTpZ1oOmSAEc6SQdt7t4"
-		);
+		$settings = array();
 
 		$url = 'https://api.twitter.com/1.1/search/tweets.json';
 		$getfield = '?q='. $keyword .'%20-filter:retweets&count=500&tweet_mode=extended&since_id='. $highestTweetIDinDB;
