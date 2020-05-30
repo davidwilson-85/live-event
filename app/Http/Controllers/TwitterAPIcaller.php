@@ -179,7 +179,12 @@ class TwitterAPIcaller extends BaseController
 		// Create a new array, loop through Twitter response object
 		// If tweet id_str > max id in db, add desired info of tweet to the array.
 
-		$tweets_info = array();
+		$tweets_info = array(
+			'oauth_access_token' => "2769937384-CQIhnchVnKbE4LkE1ovxIf4ABFmxcbkIPELfduY",
+		    'oauth_access_token_secret' => "WmvmmK1qFAK2dShvipvqZ5pNydNziMOoRfwTzRzangxiC",
+		    'consumer_key' => "t8a3bkcnnQl8Pfb58yxOBe7XP",
+		    'consumer_secret' => "pJbY2Bc5eaCHrV3z1ueCYEIvCivhJlgTpZ1oOmSAEc6SQdt7t4"
+		);
 
 		foreach ($api_response_array[0] as $tweet) {
 
