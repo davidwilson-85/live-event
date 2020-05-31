@@ -29,16 +29,16 @@ security: free
 type: hours
 
 # date: only applies if type=hours
-date: 2020-05-20
+date: 2020-05-31
 
 # date_interval: start and end dates (inclusive). Only applies if type=days
 date_interval: YYYY-MM-DD:YYYY-MM-DD
 
 # time_start: Time of event start (web upload opens; start calling APIs) 
-time_start: 00:00
+time_start: 02:00
 
 # time_stop: Time of event stop (web upload closes; stop calling APIs)
-time_stop: 02:00
+time_stop: 03:00
 
 #===========================================================================
 # Type of media accepted
@@ -82,6 +82,6 @@ twitter_hashtags: #hashtag1 #hashtag2
 twitter_keyword: party
 
 # twitter_frequency: Frequency (in min) to call the twitter API to retrieve new tweets
-twitter_frequency: 5
+twitter_frequency: 1
 
 #===========================================================================

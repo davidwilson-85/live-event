@@ -144,8 +144,13 @@ class TwitterAPIcaller extends BaseController
 
 		// From Twitter API docs: "since_id" = Returns results with an ID greater than (that is, more recent than) the specified ID. There are limits to the number of Tweets which can be accessed through the API. If the limit of Tweets has occured since the since_id, the since_id will be forced to the oldest ID available.
 
-		$settings = array();
-
+		$settings = array(
+			'oauth_access_token' => env('TWITTER_OAUTH_ACCESS_TOKEN'),
+			'oauth_access_token_secret' => env('TWITTER_OAUTH_ACCESS_TOKEN_SECRET'),
+			'consumer_key' => env('TWITTER_CONSUMER_KEY'),
+			'consumer_secret' => env('TWITTER_CONSUMER_SECRET')
+		);
+		
 		$url = 'https://api.twitter.com/1.1/search/tweets.json';
 		$getfield = '?q='. $keyword .'%20-filter:retweets&count=500&tweet_mode=extended&since_id='. $highestTweetIDinDB;
 		$requestMethod = 'GET';
@@ -179,12 +184,7 @@ class TwitterAPIcaller extends BaseController
 		// Create a new array, loop through Twitter response object
 		// If tweet id_str > max id in db, add desired info of tweet to the array.
 
-		$tweets_info = array(
-			'oauth_access_token' => "2769937384-CQIhnchVnKbE4LkE1ovxIf4ABFmxcbkIPELfduY",
-		    'oauth_access_token_secret' => "WmvmmK1qFAK2dShvipvqZ5pNydNziMOoRfwTzRzangxiC",
-		    'consumer_key' => "t8a3bkcnnQl8Pfb58yxOBe7XP",
-		    'consumer_secret' => "pJbY2Bc5eaCHrV3z1ueCYEIvCivhJlgTpZ1oOmSAEc6SQdt7t4"
-		);
+		$tweets_info = array();
 
 		foreach ($api_response_array[0] as $tweet) {
 
