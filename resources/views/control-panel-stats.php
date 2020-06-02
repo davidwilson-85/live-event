@@ -15,6 +15,4 @@
 		<a href="#">Moderator page</a>
 	</p>
 
-	
-
 @endsection

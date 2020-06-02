@@ -1,8 +1,16 @@
+/*
+
+This is the default style and contains the styles for the light theme.
+
+*/
+
 body {
 	margin: 0px;
 	width: 100%;
 	font-family: 'Jost', sans-serif;
 	padding: auto;
+	background-color: white;
+	color: rgb(60,60,60);
 }
 
 #header {
@@ -55,6 +63,11 @@ body {
 	background-color: rgb(255,0,255);
 }
 
+.subheader-button:hover {
+	color: rgb(50,50,50);
+	border: 1px solid rgb(70,70,70);
+}
+
 #content {
 	margin: 0px auto 15px auto;
 	width: 700px;
@@ -75,6 +88,14 @@ h2 {
 	font-size: 18px;
 }
 
+a {
+	text-decoration: none;
+	color: blue;
+}
+
+a:hover {
+	color: red;
+}
 
 
 /*==============================================
@@ -105,7 +126,7 @@ Form elements
 	padding: 5px;
 	height: 23px;
 	border: none;
-	border-bottom: 1px solid rgb(100,100,100);
+	border-right: 3px solid rgb(255,0,255);
 	background-color: rgb(200,200,200);
 }
 
@@ -126,6 +147,48 @@ Form elements
 	color: rgb(200,200,200);
 	font-family: 'Jost', sans-serif;
 	font-size: 16px;
+}
+
+/* Styles to convert checkboxes to slider selectors */
+
+input[type="checkbox"].switch_1 {
+	font-size: 20px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 3.5em;
+	height: 1.5em;
+	background: #ddd;
+	border-radius: 3em;
+	position: relative;
+	cursor: pointer;
+	outline: none;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+  
+input[type="checkbox"].switch_1:checked{
+	background: #3366ff;
+}
+  
+input[type="checkbox"].switch_1:after{
+	position: absolute;
+	content: "";
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 50%;
+	background: #fff;
+	-webkit-box-shadow: 0 0 .25em rgba(0,0,0,.3);
+	        box-shadow: 0 0 .25em rgba(0,0,0,.3);
+	-webkit-transform: scale(.7);
+	        transform: scale(.7);
+	left: 0;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+  
+input[type="checkbox"].switch_1:checked:after{
+	left: calc(100% - 1.5em);
 }
 
 
@@ -177,7 +240,7 @@ Control Panel - List of events
 }
 
 #table-events table, #table-events th, #table-events td {
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid rgb(221,221,221);
 }
 
 #table-events th {
@@ -193,5 +256,5 @@ Control Panel - List of events
 }
 
 #table-events tr:hover {
-	background-color: #f5f5f5;
+	background-color: rgb(242,242,242);
 }

@@ -1,6 +1,6 @@
 body {
 	background-color: rgb(50,50,50);
-	color: rgb(230,230,230);
+	color: rgb(180,180,180);
 }
 
 a {
@@ -19,4 +19,23 @@ a:hover {
 
 #content {
 	border: 1px solid rgb(100,100,100);
+}
+
+
+
+
+/*==============================================
+Control Panel - List of events
+==============================================*/
+
+#table-events th {
+	background-color: rgb(85,85,85);
+}
+
+#table-events table, #table-events th, #table-events td {
+	border-bottom: 1px solid rgb(140,140,140);
+}
+
+#table-events tr:hover {
+	background-color: rgb(65,65,65);
 }

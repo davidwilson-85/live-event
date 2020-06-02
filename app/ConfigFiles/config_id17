@@ -29,7 +29,7 @@ security: free
 type: hours
 
 # date: only applies if type=hours
-date: 2020-05-31
+date: 2020-05-30
 
 # date_interval: start and end dates (inclusive). Only applies if type=days
 date_interval: YYYY-MM-DD:YYYY-MM-DD

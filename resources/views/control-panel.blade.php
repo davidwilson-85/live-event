@@ -83,6 +83,11 @@
 						<option value="2">Long-term event</option>
 					</select>
 				</div>
+			</div>
+
+			<div id="checkBoxStringency">
+				<input type="checkbox" class="switch_1" id="stringency">
+			</div>
 
 			<button class="form-button" type="submit" name="store">Create</button>
 
