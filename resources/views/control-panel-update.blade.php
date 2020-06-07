@@ -4,16 +4,17 @@
 
 @section('content')
 
-	<h2>
+	<h2 style="padding: 5px 0px 15px 0px;">
 		{{ $name }}
 	</h2>
 
-	<p class="control-panel-tab-selector" style="background-color: yellow">
-		<a href="/liveview/init/{{ $event_id }}" target="_blank">Go to Live View</a> |
-		<a href="/{{ $event_alias }}">Go to Upload Page</a> |
-		<a href="#">See event stats</a> |
-		<a href="#">Moderator page</a>
-	</p>
+	<div id="tab-selectors-panel">
+		<a class="tab-selector" href="#">Edit Event</a>
+		<a class="tab-selector" href="#">See Event Stats</a>
+		<a class="tab-selector" href="#">Moderate Content</a>
+	</div>
+
+	<div id="separator"></div>
 
 	<p>
 		<form method="post" action="/controlpanel/{{ $event_id }}/name" id="form-update-name">
@@ -29,6 +30,10 @@
 
 	<p>
 		Alias (URL to access for web-uploading to this event): <a href="/{{ $event_alias }}">livent.com/{{ $event_alias }}</a>
+	</p>
+
+	<p>
+		<a href="/liveview/init/{{ $event_id }}" target="_blank">Go to LiveView</a>
 	</p>
 
 	<p>
@@ -112,7 +117,7 @@
 	 		<input type="hidden" name="hidden" value="boolean">
 
 	 		<label for="Web enabled">Web enabled:</label>
-			<input type="checkbox" id="web_enabled" name="boolean" {{ $web_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
+			<input type="checkbox" class="switch_1" id="web_enabled" name="boolean" {{ $web_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
 	 	</form>
 	</p>
 
@@ -124,7 +129,7 @@
 	 		<input type="hidden" name="hidden" value="boolean">
 
 	 		<label for="Web enabled">Web image upload enabled:</label>
-	 		<input type="checkbox" id="web_upload_images" name="boolean" {{ $web_upload_images == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
+	 		<input type="checkbox" class="switch_1" id="web_upload_images" name="boolean" {{ $web_upload_images == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
 	 	</form>
 	</p>
 
@@ -136,7 +141,7 @@
 	 		<input type="hidden" name="hidden" value="boolean">
 
 	 		<label for="Web enabled">Web text upload enabled:</label>
-	 		<input type="checkbox" id="web_upload_text" name="boolean" {{ $web_upload_text == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
+	 		<input type="checkbox" class="switch_1" id="web_upload_text" name="boolean" {{ $web_upload_text == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
 	 	</form>
 	</p>
 
@@ -150,7 +155,7 @@
 	 		<input type="hidden" name="hidden" value="boolean">
 
 	 		<label for="Twitter enabled">Twitter enabled:</label>
-			<input type="checkbox" id="twitter_enabled" name="boolean" {{ $twitter_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
+			<input type="checkbox" class="switch_1" id="twitter_enabled" name="boolean" {{ $twitter_enabled == 'true' ? 'checked' : '' }} onchange="this.form.submit()">
 	 	</form>
 	</p>
 

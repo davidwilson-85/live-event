@@ -22,16 +22,16 @@ security: free
 type: hours
 
 # date: only applies if type=hours
-date: 2020-05-20
+date: 2020-06-07
 
 # date_interval: start and end dates (inclusive). Only applies if type=days
 date_interval: YYYY-MM-DD:YYYY-MM-DD
 
 # time_start: Time of event start (web upload opens; start calling APIs) 
-time_start: 22:00
+time_start: 10:00
 
 # time_stop: Time of event stop (web upload closes; stop calling APIs)
-time_stop: 23:30
+time_stop: 14:00
 
 #===========================================================================
 # Type of media accepted
