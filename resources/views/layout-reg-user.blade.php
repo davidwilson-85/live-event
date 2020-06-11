@@ -3,16 +3,17 @@
 <head>
 	
 	<title>@yield('title')</title>
+
 	<link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost:wght@500&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/style_main.css') }}">
 	
-	@if (session('theme') == 'light')
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/style_light.css') }}">
-	@else
+	@if (session('theme') == 'dark')
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/style_dark.css') }}">
 	@endif
+
+	<script type="text/javascript" src="{{ asset('js/control-panel.js') }}"></script>
 
 </head>
 <body>
